@@ -12,9 +12,11 @@ class Loop {
     nest(args, context = this) {
         for (let i = 0; i < args.dims.length; i++)
             context = context.body = new Loop({
-                head: new LoopHead({ stop: dims[i] }),
+                head: new LoopHead({ stop: args.dims[i] }),
                 body: new LoopBody({ context })
             })
+
+        return this
     }
 
     toString() { return `${this.head} { ${this.body} }` }

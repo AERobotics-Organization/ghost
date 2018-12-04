@@ -13,7 +13,8 @@ class Registry {
     nextVar(variable) {
         while (this.registry.has(variable = this.seekVar()));
         this.registry.add(variable)
-        return variable
+
+        return String.fromCharCode(variable)
     }
 }
 
