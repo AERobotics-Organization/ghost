@@ -1,7 +1,7 @@
 import config from '../../resources/arrow.json'
-import util from 'util'
 
 import Variable from '../variable'
+import util from 'util'
 
 export default class LoopHead {
     constructor(args) {
@@ -14,7 +14,7 @@ export default class LoopHead {
 
     toString() {
         const headLine = [
-            `${this.var.type} ${this.var.name} = ${this.var.initial}`,
+            `${this.var.type} ${this.var.name} = ${this.var.init}`,
             `${this.var.name} ${this.check} ${this.stop}`,
             `${this.var.name} ${this.step}`
         ].join(';')

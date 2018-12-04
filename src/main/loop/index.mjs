@@ -1,26 +1,22 @@
+import Loop from './loop'
 import LoopHead from './head'
-import LoopBody from './body'
 
-import util from 'util'
-
-class Loop {
+export default class LoopGroup {
     constructor(args) {
-        this.head = args.head
-        this.body = args.body
+        this.nested = args.nested
+        this.dims = args.dims
+        this.context = {}
+
+        this.nest(this.dims, this.context)
     }
 
-    nest(args, context = this) {
-        for (let i = 0; i < args.dims.length; i++)
-            context = context.body = new Loop({
-                head: new LoopHead({ stop: args.dims[i] }),
-                body: new LoopBody({ context })
-            })
+    nest(dims, context) {
+        if (!dims.length) return context
 
-        return this
+        context.body = this.nest(dims.slice(1), new Loop({
+            head: new LoopHead({ stop: dims[0] })
+        }))
+
+        return context
     }
-
-    toString() { return `${this.head} { ${this.body} }` }
-    [util.inspect.custom]() { return this.toString() }
 }
-
-export { Loop, LoopBody, LoopHead }

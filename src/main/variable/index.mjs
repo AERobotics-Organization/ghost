@@ -6,7 +6,7 @@ export default class Variable {
     constructor(args) {
         this.name = args.name || Registry.nextVar()
         this.type = args.type || config.LET
-        this.init = args.init || null
+        this.init = args.init || 0
     }
 
     toString() { return `${this.name}` }
