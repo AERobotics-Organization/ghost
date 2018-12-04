@@ -1,6 +1,14 @@
 {
-    "LOOP": {
+    "LOOPS": {
         "FOR": "for",
         "WHILE": "while"
+    },
+    "COMPARISON": {
+        "LT": "<",
+        "LTE": "<=",
+        "GT": ">",
+        "GTE": ">=",
+        "EQ": "===",
+        "NEQ": "!=="
     }
 }

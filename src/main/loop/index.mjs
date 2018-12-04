@@ -1,5 +1,5 @@
-import props from '../resources/arrow.json'
 import util from 'util'
+import props from '../resources/arrow.json'
 
 class Loop {
     constructor(args) {
@@ -12,4 +12,4 @@ class Loop {
     [util.inspect.custom]() { return this.toString() }
 }
 
-new Loop({ type: props.LOOP.FOR })
+new Loop({ type: props.LOOPS.FOR }).over([1, 2, 3, 4, 3, 5, 6, 3, 5])
