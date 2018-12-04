@@ -17,7 +17,7 @@ class Loop {
             })
     }
 
-    toString() { return `${this.type} ( ${this.head} ) { ${this.body} }` }
+    toString() { return `${this.head} { ${this.body} }` }
     [util.inspect.custom]() { return this.toString() }
 }
 

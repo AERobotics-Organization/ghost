@@ -13,11 +13,13 @@ export default class LoopHead {
     }
 
     toString() {
-        return [
-            `${this.var.name}=${this.var.initial}`,
-            `${this.var.name}${this.check}${this.stop}`,
-            `${this.var.name}${this.step}`
+        const headLine = [
+            `${this.var.type} ${this.var.name} = ${this.var.initial}`,
+            `${this.var.name} ${this.check} ${this.stop}`,
+            `${this.var.name} ${this.step}`
         ].join(';')
+
+        return `${this.type} ( ${headLine} )`
     }
 
     [util.inspect.custom]() { return this.toString() }

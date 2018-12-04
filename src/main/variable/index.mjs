@@ -4,6 +4,7 @@ import util from 'util'
 export default class Variable {
     constructor(args) {
         this.name = args.name || Registry.nextVar()
+        this.type = args.type || props.LET
         this.init = args.init || null
     }
 
