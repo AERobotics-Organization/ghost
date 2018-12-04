@@ -1,6 +1,4 @@
-
 import util from 'util'
-import props from '../resources/arrow.json'
 
 export default class LoopBody {
     constructor(args) {

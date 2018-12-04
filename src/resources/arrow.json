@@ -1,14 +1,13 @@
 {
-    "LOOPS": {
-        "FOR": "for",
-        "WHILE": "while"
-    },
-    "COMPARISON": {
-        "LT": "<",
-        "LTE": "<=",
-        "GT": ">",
-        "GTE": ">=",
-        "EQ": "===",
-        "NEQ": "!=="
-    }
+    "FOR_LOOP": "for",
+    "WHILE_LOOP": "while",
+    "LT": "<",
+    "LTE": "<=",
+    "GT": ">",
+    "GTE": ">=",
+    "EQ": "===",
+    "NEQ": "!==",
+    "ALLOWABLE_VAR_RANGES": [
+        [97, 123]
+    ]
 }
