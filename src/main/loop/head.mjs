@@ -1,17 +1,24 @@
 import props from '../../resources/arrow.json'
+import util from 'util'
 
 import Variable from '../variable'
-import util from 'util'
 
 export default class LoopHead {
     constructor(args) {
-        this.variable = args.variable || new Variable({})
-        this.condition = args.condition || props.LT
-        this.start = args.start || 0
-        this.end = args.end
-        
+        this.stop = args.stop
+        this.var = args.var || new Variable({ init: 0 })
+        this.type = args.type || props.FOR_LOOP
+        this.step = args.step || props.INC
+        this.check = args.check || props.LT
     }
 
-    toString() { return `${this.variable}${this.condition}${this.end}` }
+    toString() {
+        return [
+            `${this.var.name}=${this.var.initial}`,
+            `${this.var.name}${this.check}${this.stop}`,
+            `${this.var.name}${this.step}`
+        ].join(';')
+    }
+
     [util.inspect.custom]() { return this.toString() }
 }

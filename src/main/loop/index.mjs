@@ -5,21 +5,16 @@ import util from 'util'
 
 class Loop {
     constructor(args) {
-        this.type = args.type
         this.head = args.head
         this.body = args.body
     }
 
     nest(args, context = this) {
-        if (args.dims)
-            for (let i = 0; i < dims.length; i++)
-                context = context.body = new Loop({
-                    type: context.type,
-                    head: new LoopHead({ end: dims[i] })
-                })
-
-
-
+        for (let i = 0; i < args.dims.length; i++)
+            context = context.body = new Loop({
+                head: new LoopHead({ stop: dims[i] }),
+                body: new LoopBody({ context })
+            })
     }
 
     toString() { return `${this.type} ( ${this.head} ) { ${this.body} }` }

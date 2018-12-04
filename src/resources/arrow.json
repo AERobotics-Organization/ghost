@@ -7,6 +7,8 @@
     "GTE": ">=",
     "EQ": "===",
     "NEQ": "!==",
+    "INC": "++",
+    "DEC": "--",
     "ALLOWABLE_UNICODE_RANGES": [
         [
             97,
