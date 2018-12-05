@@ -1,8 +1,8 @@
-import Registry from '../../resources/registry'
-import config from '../../resources/arrow.json'
+import Registry from '../../../resources/registry'
+import config from '../../../resources/arrow.json'
 import util from 'util'
 
-export default class Variable {
+export default class Var {
     constructor(args) {
         this.name = args.name || Registry.nextVar()
         this.type = args.type || config.LET

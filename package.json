@@ -4,8 +4,7 @@
     "description": "Radley generates code at runtime to sweep away the repetition",
     "main": "index.js",
     "scripts": {
-        "test": "node --experimental-modules src/test",
-        "loop": "node --experimental-modules src/main/loop"
+        "test": "node --experimental-modules src/test"
     },
     "repository": {
         "type": "git",
