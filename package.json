@@ -1,23 +1,23 @@
 {
-  "name": "radley",
-  "version": "1.0.0",
-  "description": "Radley generates code at runtime to sweep away the repetition",
-  "main": "index.js",
-  "scripts": {
-    "test": "node --experimental-modules src/test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AERobotics-Organization/radley.git"
-  },
-  "keywords": [
-    "automation",
-    "performance"
-  ],
-  "author": "Nathan Wissner",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AERobotics-Organization/radley/issues"
-  },
-  "homepage": "https://github.com/AERobotics-Organization/radley#readme"
+    "name": "radley",
+    "version": "1.0.0",
+    "description": "Radley generates code at runtime to sweep away the repetition",
+    "main": "index.js",
+    "scripts": {
+        "test": "node --experimental-modules src/test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AERobotics-Organization/radley.git"
+    },
+    "keywords": [
+        "automation",
+        "performance"
+    ],
+    "author": "Nathan Wissner",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AERobotics-Organization/radley/issues"
+    },
+    "homepage": "https://github.com/AERobotics-Organization/radley#readme"
 }
