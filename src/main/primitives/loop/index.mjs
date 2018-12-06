@@ -15,6 +15,7 @@ export default class Loop {
         this.stop = 'stop' in args ? args.stop : 0
     }
 
+    inject(context) { }
     toString() { }
     [util.inspect.custom]() { return this.toString() }
 }

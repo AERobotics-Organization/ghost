@@ -5,7 +5,7 @@ import util from 'util'
 import Block from '../block'
 
 export default class Method extends Block {
-    constructor(args = [], blocks = [], close = []) {
+    constructor(args = [], blocks = []) {
         super(blocks, args)
     }
 

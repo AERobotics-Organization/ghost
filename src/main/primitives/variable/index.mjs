@@ -9,6 +9,7 @@ export default class Var {
         this.type = 'type' in args ? args.type : config.LET
     }
 
+    join(operation) { }
     inject(context) { }
     toString() { return `${this.type} ${this.tag} = ${JSON.stringify(this.init)}` }
     [util.inspect.custom]() { return this.toString() }
