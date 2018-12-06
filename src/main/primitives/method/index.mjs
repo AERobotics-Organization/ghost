@@ -1,13 +1,8 @@
-
 import config from '../../../resources/arrow.json'
 import util from 'util'
 
-import Block from '../block'
-
-export default class Method extends Block {
-    constructor(args = [], blocks = []) {
-        super(blocks, args)
-    }
+export default class Method {
+    constructor(args = [], code = []) { }
 
     toString() { }
     [util.inspect.custom]() { return this.toString() }

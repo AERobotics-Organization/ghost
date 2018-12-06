@@ -7,7 +7,8 @@ class Registry {
     }
 
     seekVar() {
-        return this.low + Math.floor(Math.random() * (this.high - this.low))
+        return this.low
+            + Math.floor(Math.random() * (this.high - this.low))
     }
 
     nextVar(variable) {
