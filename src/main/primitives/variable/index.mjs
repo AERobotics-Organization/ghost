@@ -3,12 +3,14 @@ import config from '../../../resources/arrow.json'
 import util from 'util'
 
 export default class Var {
-    constructor(args) {
-        this.id = args.id || Registry.nextVar()
-        this.type = args.type || config.LET
-        this.init = args.init || 0
+    constructor(args = {}) {
+        this.tag = 'tag' in args ? args.tag : Registry.nextVar()
+        this.init = 'init' in args ? args.init : 0
+        this.type = 'type' in args ? args.type : config.LET
     }
 
-    toString() { return `${this.type} ${this.id} = ${JSON.stringify(this.init)}` }
+    join(operation) { }
+    inject(context) { }
+    toString() { }
     [util.inspect.custom]() { return this.toString() }
 }
