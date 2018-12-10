@@ -3,13 +3,15 @@ console.log('Hello Nathan, create me\n')
 import config from '../resources/arrow.json'
 import util from 'util'
 
-import radley from '../main'
+import radley from '../main/radley'
 
 
 radley.suite({
     args: ['$A', '$R', '$mapper', '$reducer'],
-    meta: { range: [1, 10] },
+    meta: { repeat: { RL: 5, AL: 5 } },
+    nozzle: JAVASCRIPT,
     code: `
+
     RL: for(@ < $R.shape[^]){
         AL: for(@ < $A.shape[^]){
             $ri = @RL * $R.strides[^RL]
