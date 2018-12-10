@@ -1,19 +1,12 @@
 {
-    "FOR_LOOP": "for",
-    "WHILE_LOOP": "while",
-    "LT": "<",
-    "LTE": "<=",
-    "GT": ">",
-    "GTE": ">=",
-    "EQ": "===",
-    "NEQ": "!==",
-    "INC": "++",
-    "DEC": "--",
-    "LET": "let",
-    "ALLOWABLE_UNICODE_RANGES": [
-        [
-            97,
-            123
-        ]
+    "WHITE_SPACE_REGEX": "/^\\s$/g",
+    "NEW_LINE_OR_SEMI_REGEX": "/\\n|;/",
+    "FOR_LOOP_MATCH_REGEX": "/\\s*for\\s*\\(.+\\)\\s*{/",
+    "VAR_DECLARATION_MATCH_REGEX": "/\\$.+\\s*=\\s*.+/",
+    "EMPTY": "",
+    "NEW_LINE": "\n",
+    "UNICODE_LOWERCASE_LETTERS": [
+        97,
+        123
     ]
 }
