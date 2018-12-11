@@ -1,5 +1,6 @@
 {
     "COLON": ":",
     "NEW_LINE": "\n",
-    "EMPTY": ""
+    "EMPTY": "",
+    "LOOP_END": "}"
 }

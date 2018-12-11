@@ -8,7 +8,7 @@ import JAVASCRIPT from '../main/nozzles/js'
 
 
 const suite = radley.suite({
-    args: ['$A', '$R', '$mapper', '$reducer'],
+    args: ['$A', '$R', '$map', '$reduce'],
     meta: { repeat: { RL: 5, AL: 5 } },
     nozzle: JAVASCRIPT,
     code: `
@@ -18,7 +18,7 @@ const suite = radley.suite({
             RL: $ri = @ * $R.strides[^]
             AL: $ai = @ * $A.strides[^]
 
-            $R.data[$ri] = $reducer($mapper($A.data[$ai]), $R.data[$ri])
+            $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
         }
     }
 

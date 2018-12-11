@@ -3,6 +3,7 @@
     "NEW_LINE_OR_SEMI": "/\\n|;/",
     "FOR_LOOP_MATCH": "/\\s*for\\s*\\(.+\\)\\s*{/",
     "FOR_LOOP_PARSE": "/\\s*(.+):\\s*for\\s*\\((.+)\\)/",
+    "FOR_LOOP_CLOSE": "/\\s*}\\s*/",
     "STATEMENT_MATCH": "/\\s*\\w+/",
     "STATEMENT_PARSE": "/\\s*((\\w+):)*(.+)/"
 }

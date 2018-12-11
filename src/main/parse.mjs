@@ -1,4 +1,6 @@
 import regex from '../resources/json/regex.json'
+import constants from '../resources/json/constants.json'
+
 import util from 'util'
 
 import RadleyLoop from './prims/loop'
@@ -9,15 +11,18 @@ export default class RadleyParser {
     static parseTree(code, idx = [-1], context = { children: [] }) {
         while (++idx[0] < code.length) {
 
-            const taggedLine = this.tag(code[idx[0]])
+            const line = this.tag(code[idx[0]])
 
-            if (!taggedLine)
-                context = this.parseTree(code, idx, context)
+            if (!line) continue
 
-            else context.children.push(!(taggedLine instanceof RadleyStatement)
-                ? this.parseTree(code, idx, taggedLine)
-                : taggedLine
-            )
+            else if (line instanceof RadleyLoop)
+                context.children.push(this.parseTree(code, idx, line))
+
+            else if (line instanceof RadleyStatement)
+                context.children.push(line)
+
+            else if (line === constants.LOOP_END)
+                return context
         }
 
         return context
@@ -29,6 +34,9 @@ export default class RadleyParser {
 
         if (line.match(eval(regex.STATEMENT_MATCH)))
             return new RadleyStatement(line)
+
+        if (line.match(eval(regex.FOR_LOOP_CLOSE)))
+            return line.trim()
 
         else return null
     }
