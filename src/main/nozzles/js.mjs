@@ -1,4 +1,4 @@
-import config from '../../resources/arrow.json'
+import regex from '../../resources/json/regex.json'
 import util from 'util'
 
 export default class JSNozzle {

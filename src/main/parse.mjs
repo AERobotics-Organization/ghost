@@ -1,8 +1,8 @@
-import regex from '../../resources/regex.json'
+import regex from '../resources/json/regex.json'
 import util from 'util'
 
-import RadleyLoop from './loop'
-import RadleyVar from './var'
+import RadleyLoop from './prims/loop'
+import RadleyVar from './prims/var'
 
 export default class RadleyParser {
 
@@ -14,11 +14,10 @@ export default class RadleyParser {
             if (!taggedLine)
                 context = this.parseTree(code, idx, context)
 
-            else if (taggedLine.isWrapper)
-                context.children.push(this.parseTree(code, idx, taggedLine))
-
-            else
-                context.children.push(taggedLine)
+            else context.children.push(taggedLine instanceof RadleyLoop
+                ? this.parseTree(code, idx, taggedLine)
+                : taggedLine
+            )
         }
 
         return context

@@ -1,12 +1,13 @@
 console.log('Hello Nathan, create me\n')
 
-import config from '../resources/arrow.json'
+import config from '../resources/json/regex.json'
 import util from 'util'
 
-import radley from '../main/radley'
+import radley from '../main'
+import JAVASCRIPT from '../main/nozzles/js'
 
 
-radley.suite({
+const suite = radley.suite({
     args: ['$A', '$R', '$mapper', '$reducer'],
     meta: { repeat: { RL: 5, AL: 5 } },
     nozzle: JAVASCRIPT,
@@ -14,8 +15,8 @@ radley.suite({
 
     RL: for(@ < $R.shape[^]){
         AL: for(@ < $A.shape[^]){
-            $ri = RL: @ * $R.strides[^]
-            $ai = AL: @ * $A.strides[^]
+            RL: $ri = @ * $R.strides[^]
+            AL: $ai = @ * $A.strides[^]
 
             $R.data[$ri] = $reducer($mapper($A.data[$ai]), $R.data[$ri])
         }
@@ -23,4 +24,6 @@ radley.suite({
 
     return $R`
 })
+
+console.log(util.inspect(suite, false, null, true /* enable colors */))
 

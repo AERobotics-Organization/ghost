@@ -1,4 +1,4 @@
-import regex from '../../resources/regex.json'
+import regex from '../resources/json/regex.json'
 import util from 'util'
 
 import RadleyParser from './parse'

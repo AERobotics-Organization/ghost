@@ -1,9 +1,15 @@
-import config from '../../resources/arrow.json'
+import constants from '../../resources/json/constants.json'
+import regex from '../../resources/json/regex.json'
+
 import util from 'util'
 
 export default class RadleyVar {
     constructor(line) {
-        this.line = line
-        this.isWrapper = false
+        const [_, hasRefs, refs, statement] = line.match(eval(regex.VAR_DECL_PARSE))
+
+        if (hasRefs)
+            this.refs = refs.split(',')
+
+        this.line = statement.trim()
     }
 }
