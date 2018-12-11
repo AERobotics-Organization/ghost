@@ -1,5 +1,4 @@
 import regex from '../../resources/json/regex.json'
-import registry from '../../resources/registry'
 import util from 'util'
 
 export default class RadleyLoop {

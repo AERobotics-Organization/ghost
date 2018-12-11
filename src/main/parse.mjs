@@ -2,7 +2,7 @@ import regex from '../resources/json/regex.json'
 import util from 'util'
 
 import RadleyLoop from './prims/loop'
-import RadleyVar from './prims/var'
+import RadleyStatement from './prims/stmt'
 
 export default class RadleyParser {
 
@@ -14,7 +14,7 @@ export default class RadleyParser {
             if (!taggedLine)
                 context = this.parseTree(code, idx, context)
 
-            else context.children.push(taggedLine instanceof RadleyLoop
+            else context.children.push(!(taggedLine instanceof RadleyStatement)
                 ? this.parseTree(code, idx, taggedLine)
                 : taggedLine
             )
@@ -27,8 +27,8 @@ export default class RadleyParser {
         if (line.match(eval(regex.FOR_LOOP_MATCH)))
             return new RadleyLoop(line)
 
-        if (line.match(eval(regex.VAR_DECL_MATCH)))
-            return new RadleyVar(line)
+        if (line.match(eval(regex.STATEMENT_MATCH)))
+            return new RadleyStatement(line)
 
         else return null
     }

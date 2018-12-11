@@ -1,5 +1,5 @@
 
-class Registry {
+class RadleyRegistry {
     constructor() {
         this.low = /** Current lowest acceptable unicode */ 97
         this.high = /** Current highest acceptable unicode */ 123
@@ -17,6 +17,15 @@ class Registry {
 
         return String.fromCharCode(variable)
     }
+
+    register(args) {
+        const registry = {}
+
+        for (const arg of args)
+            registry[arg] = this.nextVar()
+
+        return registry
+    }
 }
 
-export default new Registry()
+export default new RadleyRegistry()

@@ -3,13 +3,13 @@ import regex from '../../resources/json/regex.json'
 
 import util from 'util'
 
-export default class RadleyVar {
+export default class RadleyStatement {
     constructor(line) {
-        const [_, hasRefs, refs, statement] = line.match(eval(regex.VAR_DECL_PARSE))
+        const [_, hasRefs, refs, statement] = line.match(eval(regex.STATEMENT_PARSE))
+
+        this.line = statement.trim()
 
         if (hasRefs)
             this.refs = refs.split(',')
-
-        this.line = statement.trim()
     }
 }
