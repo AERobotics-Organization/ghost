@@ -4,13 +4,13 @@ import config from '../resources/json/regex.json'
 import util from 'util'
 
 import radley from '../main'
-import JAVASCRIPT from '../main/nozzles/js'
+import javascript from '../main/nozzles/js'
 
 
 const suite = radley.suite({
     args: ['$A', '$R', '$map', '$reduce'],
     meta: { repeat: { RL: 5, AL: 5 } },
-    nozzle: JAVASCRIPT,
+    nozzle: javascript,
     code: `
 
     RL: for(@ < $R.shape[^]){

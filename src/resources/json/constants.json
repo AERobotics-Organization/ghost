@@ -2,5 +2,6 @@
     "COLON": ":",
     "NEW_LINE": "\n",
     "EMPTY": "",
-    "LOOP_END": "}"
+    "LOOP_START": "[-1]",
+    "RADLEY_CONTEXT": "({children: []})"
 }
