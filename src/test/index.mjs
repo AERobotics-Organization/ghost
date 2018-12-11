@@ -14,8 +14,8 @@ radley.suite({
 
     RL: for(@ < $R.shape[^]){
         AL: for(@ < $A.shape[^]){
-            $ri = @RL * $R.strides[^RL]
-            $ai = @AL * $A.strides[^AL]
+            $ri = RL: @ * $R.strides[^]
+            $ai = AL: @ * $A.strides[^]
 
             $R.data[$ri] = $reducer($mapper($A.data[$ai]), $R.data[$ri])
         }

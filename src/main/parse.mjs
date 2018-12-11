@@ -1,4 +1,4 @@
-import config from '../../resources/arrow.json'
+import regex from '../../resources/regex.json'
 import util from 'util'
 
 import RadleyLoop from './loop'
@@ -25,10 +25,10 @@ export default class RadleyParser {
     }
 
     static tag(line) {
-        if (line.match(eval(config.FOR_LOOP_MATCH_REGEX)))
+        if (line.match(eval(regex.FOR_LOOP_MATCH)))
             return new RadleyLoop(line)
 
-        if (line.match(eval(config.VAR_DECLARATION_MATCH_REGEX)))
+        if (line.match(eval(regex.VAR_DECL_MATCH)))
             return new RadleyVar(line)
 
         else return null
