@@ -6,14 +6,15 @@ import RadleyRegistry from './registry'
 
 export default class RadleySuite {
     constructor({ args, meta, code, nozzle }) {
-        this.registry = RadleyRegistry.register(args)
-        this.parseTree = RadleyParser.parseTree(
-            code.split(eval(regex.NEW_LINE_OR_SEMI)))
-
+        this.args = args
         this.meta = meta
         this.nozzle = nozzle
 
-        this.suite = nozzle.fit(this)
+        this.code = code.split(eval(regex.LOC))
+        this.registry = RadleyRegistry.register(this)
+        this.tree = RadleyParser.parseTree(this)
+
+        // this.suite = nozzle.fit(this)
     }
 
     static suite(opts) {

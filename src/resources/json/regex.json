@@ -1,6 +1,6 @@
 {
     "WHITE_SPACE": "/^\\s$/g",
-    "NEW_LINE_OR_SEMI": "/\\n|;/",
+    "LOC": "/\\n|;/",
     "FOR_LOOP_MATCH": "/\\s*for\\s*\\(.+\\)\\s*{/",
     "FOR_LOOP_PARSE": "/\\s*(.+):\\s*for\\s*\\((.+)\\)/",
     "FOR_LOOP_CLOSE": "/\\s*}\\s*/",

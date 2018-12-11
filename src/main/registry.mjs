@@ -18,7 +18,7 @@ class RadleyRegistry {
         return String.fromCharCode(variable)
     }
 
-    register(args) {
+    register({ args }) {
         const registry = {}
 
         for (const arg of args)

@@ -6,21 +6,21 @@ import RadleyStatement from './prims/stmt'
 
 export default class RadleyParser {
 
-    static parseTree(code,
+    static parseTree(suite,
         idx = eval(constants.LOOP_START),
         ctx = eval(constants.RADLEY_CONTEXT)) {
 
-        let i = null
-        while ((i = ++idx[0]) < code.length)
+        let line = null
+        while ((line = suite.code[++idx[0]]) !== undefined)
 
-            if (RadleyLoop.matchEnd(code[i]))
+            if (RadleyLoop.matchEnd(line))
                 return ctx
 
-            else if (RadleyLoop.matchStart(code[i]))
-                ctx.children.push(this.parseTree(code, idx, new RadleyLoop(code[i])))
+            else if (RadleyLoop.matchStart(line))
+                ctx.children.push(this.parseTree(suite, idx, new RadleyLoop(line)))
 
-            else if (RadleyStatement.match(code[i]))
-                ctx.children.push(new RadleyStatement(code[i]))
+            else if (RadleyStatement.match(line))
+                ctx.children.push(new RadleyStatement(line))
 
 
         return ctx
