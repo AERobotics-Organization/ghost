@@ -10,18 +10,18 @@ export default class RadleyParser {
         idx = eval(constants.LOOP_START),
         ctx = eval(constants.RADLEY_CONTEXT)) {
 
-        while (++idx[0] < code.length) {
-            const line = code[idx[0]]
+        let i = null
+        while ((i = ++idx[0]) < code.length)
 
-            if (RadleyLoop.matchEnd(line))
+            if (RadleyLoop.matchEnd(code[i]))
                 return ctx
 
-            else if (RadleyLoop.matchStart(line))
-                ctx.children.push(this.parseTree(code, idx, new RadleyLoop(line)))
+            else if (RadleyLoop.matchStart(code[i]))
+                ctx.children.push(this.parseTree(code, idx, new RadleyLoop(code[i])))
 
-            else if (RadleyStatement.match(line))
-                ctx.children.push(new RadleyStatement(line))
-        }
+            else if (RadleyStatement.match(code[i]))
+                ctx.children.push(new RadleyStatement(code[i]))
+
 
         return ctx
     }

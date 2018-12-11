@@ -13,7 +13,7 @@ export default class RadleySuite {
         this.meta = meta
         this.nozzle = nozzle
 
-        // this.suite = nozzle.fit(this)
+        this.suite = nozzle.fit(this)
     }
 
     static suite(opts) {
