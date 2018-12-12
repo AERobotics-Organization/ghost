@@ -6,7 +6,7 @@ import util from 'util'
 import RadleyContainer from './container'
 
 export default class RadleyLoop extends RadleyContainer {
-    constructor({ registry, meta }, line) {
+    constructor({ registry }, line) {
         super()
 
         const results = line.match(FOR_LOOP_PARSE)
@@ -27,18 +27,21 @@ export default class RadleyLoop extends RadleyContainer {
         return line.match(FOR_LOOP)
     }
 
-    // placeholders(loop, index) {
-    //     return this.header.replace(FOR_LOOP_STUBS, function (match) {
-    //         return match === AT_SYMBOL ? loop : index
-    //     })
-    // }
+    headers(meta, registry) {
+        const loops = new Array(meta.repeat[this.tag])
 
-    // toString() {
-    //     return this.loopVariables
-    //         .map(this.placeholders.bind(this))
-    //         .concat(super.toString())
-    // }
-    // [util.inspect.custom]() { return this.toString() }
+        for (let i = 0; i < loops.length; i++)
+            loops[i] = this.header.replace(FOR_LOOP_STUBS, function () {
+                return stub === AT_SYMBOL ? registry.findOrCreate(this.tag + i) : i
+            })
 
+        return loops
+    }
 
+    snapshot({ meta, registry }) {
+        return [
+            ...this.headers(meta, registry),
+            this.children.map()
+        ]
+    }
 }

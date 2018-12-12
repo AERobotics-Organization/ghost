@@ -21,4 +21,8 @@ export default class RadleyParseTree extends RadleyContainer {
 
         return ctx
     }
+
+    snapshot(meta) {
+        return this.children.map(function (node) { return node.snapshot(meta) })
+    }
 }

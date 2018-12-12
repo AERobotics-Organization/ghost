@@ -15,5 +15,9 @@ export default class RadleyStatement {
         return line.match(STATEMENT)
     }
 
+    snapshot(meta) {
+        
+    }
+
     // [util.inspect.custom]() { return this.toString() }
 }

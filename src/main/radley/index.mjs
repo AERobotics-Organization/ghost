@@ -14,6 +14,8 @@ export default class RadleySuite {
 
         this.registry = new RadleyRegistry().register(this)
         this.parseTree = new RadleyParseTree().parse(this)
+
+        // this.suite = nozzle.fit(this)
     }
 
     static suite(opts) {

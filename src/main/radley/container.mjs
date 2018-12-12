@@ -7,10 +7,6 @@ export default class RadleyContainer {
         this.children = new Array()
     }
 
-    // toString() {
-    //     return this.children
-    //         .map(function (child) { return child.toString() })
-    // }
-
+    // toString(meta) { return this.children }
     // [util.inspect.custom]() { return this.toString() }
 }
