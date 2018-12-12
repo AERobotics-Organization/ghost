@@ -1,23 +1,16 @@
-import regex from '../../resources/json/regex.json'
+import { STATEMENT_PARSE, STATEMENT, VARIABLES } from '../../resources/regex'
+import { EMPTY_STR, COMMA } from '../../resources/constants'
 
 export default class RadleyStatement {
-    constructor(line) {
+    constructor({ registry }, line) {
+        const [_0, _1, refs, stmt] = line.match(STATEMENT_PARSE)
 
-        const [
-            _,
-            hasRefs,
-            refs,
-            statement
-        ] = line.match(eval(regex.STATEMENT_PARSE))
-
-        this.line = statement.trim()
-
-        if (hasRefs)
-            this.refs = refs.split(',')
+        this.refs = (refs || EMPTY_STR).split(COMMA)
+        this.stmt = stmt.trim().replace(VARIABLES, registry.findOrCreate)
     }
 
     static match(line) {
-        return line.match(eval(regex.STATEMENT_MATCH))
+        return line.match(STATEMENT)
     }
 
 }

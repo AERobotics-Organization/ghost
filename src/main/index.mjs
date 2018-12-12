@@ -1,20 +1,17 @@
-import regex from '../resources/json/regex.json'
-import util from 'util'
+import { LOC } from '../resources/regex'
 
-import RadleyParser from './parse'
 import RadleyRegistry from './registry'
+import RadleyParseTree from './parse'
 
 export default class RadleySuite {
     constructor({ args, meta, code, nozzle }) {
         this.args = args
         this.meta = meta
         this.nozzle = nozzle
+        this.code = code.split(LOC)
 
-        this.code = code.split(eval(regex.LOC))
-        this.registry = RadleyRegistry.register(this)
-        this.tree = RadleyParser.parseTree(this)
-
-        // this.suite = nozzle.fit(this)
+        this.registry = new RadleyRegistry().register(this)
+        this.parseTree = new RadleyParseTree().parse(this)
     }
 
     static suite(opts) {

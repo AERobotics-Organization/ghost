@@ -1,6 +1,5 @@
 console.log('Hello Nathan, create me\n')
 
-import config from '../resources/json/regex.json'
 import util from 'util'
 
 import radley from '../main'
