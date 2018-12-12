@@ -1,5 +1,5 @@
-import { FOR_LOOP, FOR_LOOP_PARSE, FOR_LOOP_CLOSE, VARIABLES, FOR_LOOP_VAR } from '../../resources/regex'
-import { TAG, HEADER } from '../../resources/constants'
+import { FOR_LOOP, FOR_LOOP_PARSE, FOR_LOOP_CLOSE, VARIABLES, FOR_LOOP_STUBS } from '../../resources/regex'
+import { TAG, HEADER, AT_SYMBOL, TAB, NEW_LINE } from '../../resources/constants'
 
 import util from 'util'
 
@@ -12,18 +12,12 @@ export default class RadleyLoop extends RadleyContainer {
         const results = line.match(FOR_LOOP_PARSE)
 
         this.tag = results[TAG]
-        this.range = meta.repeat[this.tag]
         this.header = results[HEADER].replace(VARIABLES, registry.findOrCreate)
+        // this.loopVariables = new Array(meta.repeat[this.tag])
+
+        // for (let i = 0; i < this.loopVariables.length; i++)
+        //     this.loopVariables[i] = registry.findOrCreate(this.tag + i)
     }
-
-    // toString() {
-    //     const inflated = new Array()
-    //     for (let i = 1; i < this.meta.repeat[this.tag]; i++)
-    //         inflated.push(this.header.replace(FOR_LOOP_VAR, ))
-
-    // }
-
-    // [util.inspect.custom]() { return this.toString() }
 
     static matchEnd(line) {
         return line.match(FOR_LOOP_CLOSE)
@@ -32,4 +26,19 @@ export default class RadleyLoop extends RadleyContainer {
     static matchStart(line) {
         return line.match(FOR_LOOP)
     }
+
+    // placeholders(loop, index) {
+    //     return this.header.replace(FOR_LOOP_STUBS, function (match) {
+    //         return match === AT_SYMBOL ? loop : index
+    //     })
+    // }
+
+    // toString() {
+    //     return this.loopVariables
+    //         .map(this.placeholders.bind(this))
+    //         .concat(super.toString())
+    // }
+    // [util.inspect.custom]() { return this.toString() }
+
+
 }
