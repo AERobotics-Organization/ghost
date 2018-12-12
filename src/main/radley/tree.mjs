@@ -1,13 +1,11 @@
-import RadleyLoop from './prims/loop'
-import RadleyStatement from './prims/stmt'
+import RadleyLoop from './loop'
+import RadleyStatement from './statement'
+import RadleyContainer from './container'
 
-export default class RadleyParseTree {
-    constructor() {
-        this.children = new Array()
-    }
+export default class RadleyParseTree extends RadleyContainer {
+    constructor() { super() }
 
     parse(suite, idx = [-1], ctx = this) {
-
         let line = null
         while ((line = suite.code[++idx[0]]) !== undefined)
             if (RadleyLoop.matchEnd(line))
@@ -23,5 +21,4 @@ export default class RadleyParseTree {
 
         return ctx
     }
-
 }

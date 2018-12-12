@@ -1,7 +1,7 @@
-import { LOC } from '../resources/regex'
+import { LOC } from '../../resources/regex'
 
 import RadleyRegistry from './registry'
-import RadleyParseTree from './parse'
+import RadleyParseTree from './tree'
 
 export default class RadleySuite {
     constructor({ args, meta, code, nozzle }) {

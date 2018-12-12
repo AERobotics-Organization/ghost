@@ -2,7 +2,7 @@ console.log('Hello Nathan, create me\n')
 
 import util from 'util'
 
-import radley from '../main'
+import radley from '../main/radley'
 import javascript from '../main/nozzles/js'
 
 
