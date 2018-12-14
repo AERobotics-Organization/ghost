@@ -1,4 +1,3 @@
-import util from 'util'
 
 export default class RadleyRegistry {
     constructor() {
@@ -32,7 +31,4 @@ export default class RadleyRegistry {
 
         return this
     }
-
-    // toString() { return this.registry }
-    // [util.inspect.custom]() { return this.toString() }
 }

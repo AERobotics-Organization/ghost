@@ -3,8 +3,6 @@ import { LOC } from '../../resources/regex'
 import RadleyRegistry from './registry'
 import RadleyParseTree from './tree'
 
-import util from 'util'
-
 export default class RadleySuite {
     constructor({ args, meta, code, nozzle }) {
         this.args = args
@@ -14,14 +12,9 @@ export default class RadleySuite {
 
         this.registry = new RadleyRegistry().register(this)
         this.parseTree = new RadleyParseTree().parse(this)
-
-        // this.suite = nozzle.fit(this)
     }
 
     static suite(opts) {
         return new RadleySuite(opts)
     }
-
-    // toString() { return { args: this.args, nozzle: this.nozzle, registry: this.registry, tree: this.parseTree } }
-    // [util.inspect.custom]() { return this.toString() }
 }

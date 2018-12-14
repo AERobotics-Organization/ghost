@@ -6,6 +6,7 @@ export default class RadleyParseTree extends RadleyContainer {
     constructor() { super() }
 
     parse(suite, idx = [-1], ctx = this) {
+
         let line = null
         while ((line = suite.code[++idx[0]]) !== undefined)
             if (RadleyLoop.matchEnd(line))
@@ -20,9 +21,6 @@ export default class RadleyParseTree extends RadleyContainer {
                     new RadleyStatement(suite, line))
 
         return ctx
-    }
 
-    snapshot(meta) {
-        return this.children.map(function (node) { return node.snapshot(meta) })
     }
 }
