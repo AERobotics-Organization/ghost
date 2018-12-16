@@ -6,14 +6,17 @@ import radley from '../main/radley'
 import javascript from '../main/nozzles/js'
 
 
-const suite = radley.suite({
+radley.suite({
     args: ['$A', '$R', '$map', '$reduce'],
-    meta: { repeat: { RL: 5, AL: 5 } },
+    meta: [
+        ['RL', 'repeat', [1, 2, 3, 4, 5]],
+        ['AL', 'repeat', [1, 2, 3, 4, 5]],
+    ],
     nozzle: javascript,
     code: `
 
-    RL: for(@ < $R.shape[^]){
-        AL: for(@ < $A.shape[^]){
+    RL: loop(@ < $R.shape[^]) {
+        AL: loop(@ < $A.shape[^]) {
             RL: $ri = @ * $R.strides[^]
             AL: $ai = @ * $A.strides[^]
 
@@ -24,5 +27,5 @@ const suite = radley.suite({
     return $R`
 })
 
-console.log(util.inspect(suite, false, null, true /* enable colors */))
+// console.log(util.inspect(suite, false, null, true /* enable colors */))
 

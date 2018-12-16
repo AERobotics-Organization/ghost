@@ -14,5 +14,4 @@ export default class RadleyStatement {
     static match(line) {
         return line.match(STATEMENT)
     }
-    // [util.inspect.custom]() { return this.toString() }
 }
