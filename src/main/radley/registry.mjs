@@ -25,10 +25,9 @@ export default class RadleyRegistry {
         return String.fromCharCode(variable)
     }
 
-    register({ args }) {
-        for (const arg of args)
-            this.registry[arg] = this.nextVar()
-
-        return this
+    register(args) {
+        return args.map(function (arg) {
+            return this.registry[arg] = this.nextVar()
+        }, this)
     }
 }

@@ -1,20 +1,19 @@
 import { LOC } from '../../resources/regex'
 
 import RadleyRegistry from './registry'
-import RadleyStatement from './statement'
-import RadleyLoop from './loop'
 
 export default class RadleySuite {
-    constructor({ args, meta, code, nozzle }) {
-        this.args = args
-        this.meta = meta
-        this.nozzle = nozzle
-        this.code = code
+    constructor({ args, meta, code }) {
+        this.registry = new RadleyRegistry()
+        this.args = this.registry.register(args)
 
-        this.registry = new RadleyRegistry(this)
+        this.code = code.split(LOC)
+
+        this.meta = RadleyMeta.snapshots(meta)
+        this.tree = RadleyTree.forrest(this)
     }
 
-    *snapshots(meta = this.meta, snap = {}) {
+    *snapshots(meta, snap = {}) {
         if (!meta.length) yield snap
 
         const [tag, setting, ticks] = meta[0]
@@ -27,24 +26,7 @@ export default class RadleySuite {
         }
     }
 
-    parse(suite, idx = [-1], ctx = this) {
-
-        let line = null
-        while ((line = suite.code[++idx[0]]) !== undefined)
-            if (RadleyLoop.matchEnd(line))
-                return ctx
-
-            else if (RadleyLoop.matchStart(line))
-                ctx.children.push(this.parse(suite, idx,
-                    new RadleyLoop(suite, line)))
-
-            else if (RadleyStatement.match(line))
-                ctx.children.push(
-                    new RadleyStatement(suite, line))
-
-        return ctx
-
-    }
+    
 
     static suite(opts) {
         return new RadleySuite(opts)

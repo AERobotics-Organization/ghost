@@ -12,7 +12,6 @@ radley.suite({
         ['RL', 'repeat', [1, 2, 3, 4, 5]],
         ['AL', 'repeat', [1, 2, 3, 4, 5]],
     ],
-    nozzle: javascript,
     code: `
 
     RL: loop(@ < $R.shape[^]) {
@@ -24,7 +23,8 @@ radley.suite({
         }
     }
 
-    return $R`
+    return $R
+    `
 })
 
 // console.log(util.inspect(suite, false, null, true /* enable colors */))
