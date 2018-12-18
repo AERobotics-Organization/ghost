@@ -2,20 +2,31 @@ import RadleyStatement from './statement'
 import RadleyLoop from './loop'
 
 export default class RadleyParseTree {
-    parseTrees(context, block, line = null) {
-        
+    harvest(context) {
+
+        let meta
+        const suite = {}
+        while ((meta = context.meta.next().value) !== undefined)
+            suite[meta] = this.chop.bind(this, context, meta)()
+
+        return suite
+    }
+
+    chop(context, meta, statement = null) {
+
+        let line
         while ((line = context.code.next().value) !== undefined)
-            if (RadleyLoop.matchEnd(line))
-                return block
 
-            else if (RadleyLoop.matchStart(line))
-                block.children.push(this.parse(context, new RadleyLoop(context, line)))
+            if (isClosingBrace(line))
+                return statement
 
-            else if (RadleyStatement.match(line))
-                block.children.push(new RadleyStatement(context, line))
+            else if (isOpeningBrace(line))
+                statement.push(this.chop(new RadleyStatement(meta, line)))
+
+            else
+                statement.push(new RadleyStatement(meta, line))
 
 
-        return block
-
+        return statement
     }
 }
