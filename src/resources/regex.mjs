@@ -1,4 +1,4 @@
-export const LOC = /\n|;/
+export const NEW_LINE = /\n|;/
 export const VARIABLES = /\$\w+/g
 export const WHITE_SPACE = /^\s$/g
 export const FOR_LOOP = /\s*for\s*\(.+\)\s*{/

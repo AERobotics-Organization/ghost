@@ -1,10 +1,7 @@
 console.log('Hello Nathan, create me\n')
 
 import util from 'util'
-
 import radley from '../main/radley'
-import javascript from '../main/nozzles/js'
-
 
 radley.suite({
     args: ['$A', '$R', '$map', '$reduce'],
