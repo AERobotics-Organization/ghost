@@ -1,5 +1,4 @@
 import RadleyStatement from './statement'
-import RadleyLoop from './loop'
 
 export default class RadleyParseTree {
     harvest(context) {
