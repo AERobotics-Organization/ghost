@@ -1,7 +1,7 @@
 import RadleyStatement from './statement'
 
 export default class RadleyParseTree {
-    harvest(context) {
+    forrest(context) {
 
         let meta
         const suite = {}

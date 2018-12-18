@@ -11,10 +11,6 @@ export default class RadleyStatement {
         this.stmt = result[STMT].trim().replace(VARIABLES, registry.findOrCreate)
     }
 
-    static match(line) {
-        return line.match(STATEMENT)
-    }
-
 
 
     // const results = line.match(FOR_LOOP_PARSE)
