@@ -18,16 +18,11 @@ export default class RadleyRegistry {
         return this.low + Math.floor(Math.random() * (this.high - this.low))
     }
 
-    nextVar(variable = null) {
+    nextVar() {
+        let variable = null
         while (this.selected.has(variable = this.seekVar()));
         this.selected.add(variable)
 
         return String.fromCharCode(variable)
-    }
-
-    register(args) {
-        return args.map(function (arg) {
-            return this.registry[arg] = this.nextVar()
-        }, this)
     }
 }

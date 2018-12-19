@@ -1,4 +1,4 @@
-import { LOC } from '../../resources/regex'
+import { LOC, VARIABLES } from '../../resources/regex'
 
 import RadleyMeta from './meta'
 import RadleyTree from './tree'
@@ -8,12 +8,11 @@ export default class RadleySuite {
     constructor({ args, meta, code }) {
         this.registry = new RadleyRegistry()
 
-        this.meta = meta
-        this.args = args
-        this.code = code.split(LOC)
+        this.args = args.map(this.registry.findOrCreate)
 
-        this.meta = RadleyMeta.init(this.meta)
-        this.tree = RadleyTree.init(this.code)
+        this.meta = RadleyMeta.init(meta)
+        this.tree = RadleyTree.init(
+            code.replace(VARIABLES, this.registry.findOrCreate).split(LOC))
     }
 
     static suite(opts) {

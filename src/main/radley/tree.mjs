@@ -1,6 +1,6 @@
 import { CLOSING_BRACE, OPENING_BRACE, WHITE_SPACE } from '../../resources/regex'
 
-import RadleyStatement from './statement'
+import RadleyStatement from './statements'
 
 export default class RadleyTree {
     static init(code, statement = []) {
