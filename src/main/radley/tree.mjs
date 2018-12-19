@@ -1,29 +1,21 @@
+import { CLOSING_BRACE, OPENING_BRACE, WHITE_SPACE } from '../../resources/regex'
+
 import RadleyStatement from './statement'
 
-export default class RadleyParseTree {
-    makeTrees(context) {
-
-        let meta
-        const suite = {}
-        while ((meta = context.meta.next().value) !== undefined)
-            suite[meta] = this.chop.bind(this, context, meta)()
-
-        return suite
-    }
-
-    chop(context, meta, statement = null) {
+export default class RadleyTree {
+    static init(code, statement = []) {
 
         let line
-        while ((line = context.code.next().value) !== undefined)
+        while ((line = code.shift()) !== undefined)
 
-            if (isClosingBrace(line))
+            if (line.match(CLOSING_BRACE))
                 return statement
 
-            else if (isOpeningBrace(line))
-                statement.push(this.chop(new RadleyStatement(meta, line)))
+            else if (line.match(OPENING_BRACE))
+                statement.push(this.init(code, new RadleyStatement(line)))
 
-            else
-                statement.push(new RadleyStatement(meta, line))
+            else if (!line.match(WHITE_SPACE))
+                statement.push(new RadleyStatement(line))
 
 
         return statement

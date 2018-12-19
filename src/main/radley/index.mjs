@@ -1,17 +1,19 @@
-import { NEW_LINE } from '../../resources/regex'
+import { LOC } from '../../resources/regex'
 
+import RadleyMeta from './meta'
+import RadleyTree from './tree'
 import RadleyRegistry from './registry'
 
 export default class RadleySuite {
     constructor({ args, meta, code }) {
         this.registry = new RadleyRegistry()
 
-        this.args = args
         this.meta = meta
-        this.code = code.split(NEW_LINE)
+        this.args = args
+        this.code = code.split(LOC)
 
-        this.snaps = RadleyMeta.makeSnaps(meta)
-        this.trees = RadleyTree.makeTrees(this)
+        this.meta = RadleyMeta.init(this.meta)
+        this.tree = RadleyTree.init(this.code)
     }
 
     static suite(opts) {

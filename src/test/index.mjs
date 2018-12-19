@@ -3,7 +3,7 @@ console.log('Hello Nathan, create me\n')
 import util from 'util'
 import radley from '../main/radley'
 
-radley.suite({
+const suite = radley.suite({
     args: ['$A', '$R', '$map', '$reduce'],
     meta: [
         ['RL', 'repeat', [1, 2, 3, 4, 5]],
@@ -24,5 +24,5 @@ radley.suite({
     `
 })
 
-// console.log(util.inspect(suite, false, null, true /* enable colors */))
+console.log(util.inspect(suite, false, null, true /* enable colors */))
 
