@@ -13,8 +13,8 @@ const suite = radley.suite({
 
     RL: loop(@ < $R.shape[^]) {
         AL: loop(@ < $A.shape[^]) {
-            RL: $ri = @ * $R.strides[^]
-            AL: $ai = @ * $A.strides[^]
+            RL: $ri = sum(@ * $R.strides[^])
+            AL: $ai = sum(@ * $A.strides[^])
 
             $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
         }
