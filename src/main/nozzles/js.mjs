@@ -1,22 +1,9 @@
 
-export default class JSNozzle {
-    static fit({ args, meta, registry, tree }) {
-        const suite = {}
+export default class JavaScriptNozzle {
+    static fit({ args, registry, tree, meta }) {
+        const suite = new Object()
 
-        for (let i = 1; i < meta.repeat.RL; i++)
-            for (let j = 1; j < meta.repeat.AL; j++)
-                suite[i][j] =
-                    new Function(...args,
-                        tree.snapshot(i, j)
-                            .map(this.tag)
-                            .map(this.translate)
-                            .reduce(this.toJavaScript))
-        return suite
+        for (const setting of meta)
+            console.log(setting)
     }
-
-    static tag(line) { }
-    static translate(code) { }
-    static toJavaScript() { }
-
-
 }
