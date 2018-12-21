@@ -1,9 +1,16 @@
 
 export default class JavaScriptNozzle {
     static fit({ args, registry, tree, meta }) {
-        const suite = new Object()
+        this.injectTree(registry, tree)
+    }
 
-        for (const setting of meta)
-            console.log(setting)
+    static injectTree(registry, tree, meta) {
+        if (!tree.length) return tree
+
+        // for (const node of tree) {
+        //     node.fill(meta)
+        //     this.injectTree(registry, node)
+        // }
+
     }
 }
