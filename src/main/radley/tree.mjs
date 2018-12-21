@@ -1,4 +1,4 @@
-import { LEADING_WHITE_SPACE, WHITE_SPACE, RADLEY_FUNCTION } from '../../resources'
+import { LEADING_WHITE_SPACE, BLANK_LINE, RADLEY_FUNCTION } from '../../resources'
 
 import RadleyStatement from './statement'
 

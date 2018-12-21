@@ -1,4 +1,4 @@
-import { STATEMENT } from '../../resources/regex'
+import { STATEMENT } from '../../resources'
 
 export default class RadleyStatement extends Array {
     constructor(raw) {
@@ -7,9 +7,7 @@ export default class RadleyStatement extends Array {
         const [_, depth, options, line] = raw.match(STATEMENT)
 
         this.depth = depth.length
-        this.options = options
+        this.options = eval(`(${options})`)
         this.line = line.trim()
-
-        console.log(this)
     }
 }

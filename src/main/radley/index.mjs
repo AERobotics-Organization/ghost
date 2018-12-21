@@ -1,4 +1,4 @@
-import { LOC, VARIABLES } from '../../resources/regex'
+import { LOC, VARIABLES } from '../../resources'
 
 import RadleyMeta from './meta'
 import RadleyTree from './tree'
