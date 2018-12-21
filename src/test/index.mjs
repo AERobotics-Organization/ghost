@@ -12,14 +12,13 @@ const suite = radley.suite({
 
     { tag: 'RL', do: ['loop'] } : @ < $R.shape[^] 
         { tag: 'AL', do: ['loop'] } : @ < $A.shape[^] 
-
             { tag: 'RL', do: ['sum', 'assign'] } : $ri = @ * $R.strides[^]
             { tag: 'AL', do: ['sum', 'assign'] } : $ai = @ * $A.strides[^]
-
+            
             { do: ['assign'] } : $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
-        
 
     { do: ['return'] } : $R`
+
 })
 
 import util from 'util'

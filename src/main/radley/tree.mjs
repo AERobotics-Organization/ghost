@@ -1,9 +1,9 @@
-import { LEADING_WHITE_SPACE, BLANK_LINE, RADLEY_FUNCTION } from '../../resources'
+import { LEADING_WHITE_SPACE, BLANK_LINE } from '../../resources'
 
 import RadleyStatement from './statement'
 
 export default class RadleyTree {
-    static init(code, statement = new RadleyStatement(RADLEY_FUNCTION)) {
+    static init(code, statement = new Array()) {
 
         let line
         while ((line = code.shift()) !== undefined)
@@ -13,7 +13,7 @@ export default class RadleyTree {
                     return statement
 
                 else if (RadleyTree.newBlock(line, statement))
-                    statement.push(RadleyTree.init(code, new RadleyStatement(line)))
+                    statement.push(RadleyTree.init(code, [new RadleyStatement(line)]))
 
                 else if (RadleyTree.sameBlock(line, statement))
                     statement.push(new RadleyStatement(line))

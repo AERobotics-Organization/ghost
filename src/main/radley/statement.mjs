@@ -1,9 +1,7 @@
 import { STATEMENT } from '../../resources'
 
-export default class RadleyStatement extends Array {
+export default class RadleyStatement {
     constructor(raw) {
-        super()
-
         const [_, depth, options, line] = raw.match(STATEMENT)
 
         this.depth = depth.length
