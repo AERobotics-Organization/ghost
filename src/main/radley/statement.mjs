@@ -4,7 +4,7 @@ export default class RadleyStatement extends Array {
     constructor(raw) {
         super()
 
-        const [options, line] = raw.trim().match(STATEMENT)
+        const [_, options, line] = raw.trim().match(STATEMENT)
 
         this.line = line.trim()
         this.options = options.trim()

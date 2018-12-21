@@ -1,1 +1,0 @@
-export const UNICODE_LOWERCASE_LETTERS = [97, 123]
