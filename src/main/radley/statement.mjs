@@ -4,10 +4,11 @@ export default class RadleyStatement extends Array {
     constructor(raw) {
         super()
 
-        const [_, options, line] = raw.trim().match(STATEMENT)
+        const [_, depth, options, line] = raw.match(STATEMENT)
 
+        this.depth = depth.length
+        this.options = options
         this.line = line.trim()
-        this.options = options.trim()
 
         console.log(this)
     }

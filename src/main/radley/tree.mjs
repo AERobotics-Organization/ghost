@@ -1,23 +1,36 @@
-import { CLOSING_BRACE, OPENING_BRACE, WHITE_SPACE } from '../../resources/regex'
+import { LEADING_WHITE_SPACE, WHITE_SPACE, RADLEY_FUNCTION } from '../../resources'
 
 import RadleyStatement from './statement'
 
 export default class RadleyTree {
-    static init(code, statement = []) {
+    static init(code, statement = new RadleyStatement(RADLEY_FUNCTION)) {
 
         let line
         while ((line = code.shift()) !== undefined)
 
-            if (CLOSING_BRACE.test(line))
-                return statement
+            if (!BLANK_LINE.test(line))
+                if (RadleyTree.endBlock(line, statement))
+                    return statement
 
-            else if (OPENING_BRACE.test(line))
-                statement.push(this.init(code, new RadleyStatement(line)))
+                else if (RadleyTree.newBlock(line, statement))
+                    statement.push(RadleyTree.init(code, new RadleyStatement(line)))
 
-            else if (!WHITE_SPACE.test(line))
-                statement.push(new RadleyStatement(line))
+                else if (RadleyTree.sameBlock(line, statement))
+                    statement.push(new RadleyStatement(line))
 
 
         return statement
+    }
+
+    static endBlock(line, context) {
+        return line.search(LEADING_WHITE_SPACE) < context.depth
+    }
+
+    static newBlock(line, context) {
+        return line.search(LEADING_WHITE_SPACE) > context.depth
+    }
+
+    static sameBlock(line, context) {
+        return line.search(LEADING_WHITE_SPACE) === context.depth
     }
 }
