@@ -1,4 +1,4 @@
-import js from '../main/nozzles/js'
+import js from '../main/nozzles/javascript'
 import radley from '../main/radley'
 
 const suite = radley.suite({
