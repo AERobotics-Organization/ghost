@@ -12,3 +12,8 @@ export const NEW_LINE = "\n"
 
 /** --------------- VARIABLES --------------------- */
 export const UNICODE_LOWERCASE_LETTERS = [97, 123]
+
+/** --------------- FUNCTIONS --------------------- */
+export const OUT_BLANK_LINES = function (line) {
+    return !BLANK_LINE.test(line)
+}
