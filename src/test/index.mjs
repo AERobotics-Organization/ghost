@@ -12,8 +12,8 @@ const suite = radley.suite({
 
     { tag: 'RL', type: 'loop' } : @ < $R.shape[^] 
         { tag: 'AL', type: 'loop' } : @ < $A.shape[^] 
-            { tag: 'RL', type: 'assign', do: 'sum' } : $ri = @ * $R.strides[^]
-            { tag: 'AL', type: 'assign', do: 'sum' } : $ai = @ * $A.strides[^]
+            { tag: 'RL', type: 'assign', action: '+' } : $ri = @ * $R.strides[^]
+            { tag: 'AL', type: 'assign', action: '+' } : $ai = @ * $A.strides[^]
             
             { type: 'assign' } : $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
 

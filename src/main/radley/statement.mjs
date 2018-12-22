@@ -1,4 +1,4 @@
-import { STATEMENT, BLANK_LINE } from '../../resources'
+import { STATEMENT } from '../../resources'
 
 export default class RadleyStatement {
     constructor(raw) {
@@ -6,6 +6,6 @@ export default class RadleyStatement {
 
         this.depth = depth.length
         this.options = eval(`(${options})`)
-        this.line = line.trim()
+        this.line = line.split('=')
     }
 }
