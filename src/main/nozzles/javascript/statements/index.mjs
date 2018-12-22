@@ -12,7 +12,5 @@ export default class JavaScriptStatement {
 
         console.log(this.type)
         console.log(this.line)
-        console.log(this.meta)
-        console.log(this.action)
     }
 }

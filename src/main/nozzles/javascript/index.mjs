@@ -18,18 +18,20 @@ export default class JavaScriptNozzle {
                 JavaScriptNozzle.spray(registry, node, meta)
             else {
 
-                JavaScriptNozzle.resolve(node, meta, registry)
+                const JavaScriptStatement = JavaScriptNozzle.resolveStatement(node)
+                const sourceCode = new JavaScriptStatement(node, meta, registry).toSource()
 
+                console.log(sourceCode)
                 console.log('++++++++++++++++++++++++++++++++++')
             }
 
     }
 
-    static resolve(node, meta, registry) {
+    static resolveStatement(node) {
         switch (node.options.type) {
-            case 'loop': return new JavaScriptLoop(node, meta, registry)
-            case 'return': return new JavaScriptReturn(node, meta, registry)
-            case 'assign': return new JavaScriptAssignment(node, meta, registry)
+            case 'loop': return JavaScriptLoop
+            case 'return': return JavaScriptReturn
+            case 'assign': return JavaScriptAssignment
         }
     }
 }
