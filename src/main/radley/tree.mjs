@@ -1,36 +1,23 @@
-import { LEADING_WHITE_SPACE, BLANK_LINE } from '../../resources'
+import { BLANK_LINE } from '../../resources'
 
 import RadleyStatement from './statement'
 
 export default class RadleyTree {
-    static init(code, statement = new Array()) {
-
-        let line
+    static init(code, block = new Array(), depth = 0) {
+        let line, statement
         while ((line = code.shift()) !== undefined)
+            if (!(statement = new RadleyStatement(line)).isBlank())
 
-            if (!BLANK_LINE.test(line))
-                if (RadleyTree.endBlock(line, statement))
-                    return statement
+                if (statement.depth > depth)
+                    block.push(RadleyTree.init(code, [statement], statement.depth))
 
-                else if (RadleyTree.newBlock(line, statement))
-                    statement.push(RadleyTree.init(code, [new RadleyStatement(line)]))
+                else if (statement.depth < depth)
+                    return block
 
-                else if (RadleyTree.sameBlock(line, statement))
-                    statement.push(new RadleyStatement(line))
+                else
+                    block.push(statement)
 
-
-        return statement
+        return block
     }
 
-    static endBlock(line, context) {
-        return line.search(LEADING_WHITE_SPACE) < context.depth
-    }
-
-    static newBlock(line, context) {
-        return line.search(LEADING_WHITE_SPACE) > context.depth
-    }
-
-    static sameBlock(line, context) {
-        return line.search(LEADING_WHITE_SPACE) === context.depth
-    }
 }

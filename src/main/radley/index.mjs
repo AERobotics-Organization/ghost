@@ -15,7 +15,6 @@ export default class RadleySuite {
             .replace(VARIABLES, this.registry.findOrCreate)
             .split(LINES_OF_CODE))
 
-        this.suite = nozzle.fit(this)
     }
 
     static suite(opts) {
