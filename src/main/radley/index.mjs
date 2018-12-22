@@ -9,15 +9,12 @@ export default class RadleySuite {
         this.registry = new RadleyRegistry()
 
         this.args = args.map(this.registry.findOrCreate)
-        this.meta = meta
-        this.code = code
+
+        this.meta = RadleyMeta.init(meta)
+        this.tree = RadleyTree.init(code
             .replace(VARIABLES, this.registry.findOrCreate)
             .split(LINES_OF_CODE)
-            .filter(function (line) { return !BLANK_LINE.test(line) })
-
-        this.snap = RadleyMeta.init(this.meta)
-        this.tree = RadleyTree.init(this.code)
-
+            .filter(function (line) { return !BLANK_LINE.test(line) }))
     }
 
     static suite(opts) {
