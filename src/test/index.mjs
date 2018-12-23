@@ -10,12 +10,13 @@ const suite = radley.suite({
     nozzle: js,
     code: `
 
-    { tag: 'RL', type: 'loop' } : @ < $R.shape[^] 
-        { tag: 'AL', type: 'loop' } : @ < $A.shape[^] 
-            { tag: 'RL', type: 'assign', action: '+' } : $ri = @ * $R.strides[^]
-            { tag: 'AL', type: 'assign', action: '+' } : $ai = @ * $A.strides[^]
+    { tag: 'RL', type: 'loop' } : @ = 0 ; @ < $R.shape[^] ; @++
+        { tag: 'AL', type: 'loop' } : @ = 0 ; @ < $A.shape[^] ; @++
             
-            { type: 'assign' } : $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
+            { tag: 'RL', type: 'assignment', operation: '+', modifier: 'volitile' } : $ri = @ * $R.strides[^]
+            { tag: 'AL', type: 'assignment', operation: '+', modifier: 'volitile' } : $ai = @ * $A.strides[^]
+            
+            { type: 'assignment' } : $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
 
     { type: 'return' } : $R`
 

@@ -1,4 +1,4 @@
-import { LINES_OF_CODE, VARIABLES, BLANK_LINE, OUT_BLANK_LINES } from '../../resources'
+import { NEW_LINE, VARIABLES, OUT_BLANK_LINES } from '../../resources'
 
 import RadleyMeta from './meta'
 import RadleyTree from './tree'
@@ -13,7 +13,7 @@ export default class RadleySuite {
         this.meta = RadleyMeta.init(meta)
         this.tree = RadleyTree.init(code
             .replace(VARIABLES, this.registry.findOrCreate)
-            .split(LINES_OF_CODE)
+            .split(NEW_LINE)
             .filter(OUT_BLANK_LINES))
 
         this.suite = nozzle.fit(this)

@@ -31,7 +31,7 @@ export default class JavaScriptNozzle {
         switch (node.options.type) {
             case 'loop': return JavaScriptLoop
             case 'return': return JavaScriptReturn
-            case 'assign': return JavaScriptAssignment
+            case 'assignment': return JavaScriptAssignment
         }
     }
 }

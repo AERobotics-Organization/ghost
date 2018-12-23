@@ -1,4 +1,4 @@
-import { STATEMENT } from '../../resources'
+import { STATEMENT, STATEMENT_DELIMITERS } from '../../resources'
 
 export default class RadleyStatement {
     constructor(raw) {
@@ -6,6 +6,6 @@ export default class RadleyStatement {
 
         this.depth = depth.length
         this.options = eval(`(${options})`)
-        this.line = line.split('=')
+        this.line = line.split(STATEMENT_DELIMITERS[this.options.type])
     }
 }

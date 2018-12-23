@@ -1,5 +1,3 @@
-import { FOR_LOOP_STUBS } from '../../../../resources'
-
 import JavaScriptStatement from '.'
 
 export default class JavaScriptAssignment extends JavaScriptStatement {
@@ -7,29 +5,29 @@ export default class JavaScriptAssignment extends JavaScriptStatement {
         super(statement, meta, registry)
 
         const [variable, expression] = this.line
+        this.modifier = this.modifier ? 'let' : ''
         this.variable = variable
         this.expression = expression
     }
 
     repeat(n) {
         return new Array(n)
-            .fill(`${this.expression}`)
-            .map(function (statement, i) {
-                return statement.replace(FOR_LOOP_STUBS, (function (stub) {
-                    if (stub === '@') return this.registry.findOrCreate(this.tag + i)
-                    else return i
-                }).bind(this))
-            }, this)
-            .join(this.action)
+            .fill(this.expression)
+            .map(this.expand)
+            .join(this.operation)
+    }
+
+    toString(expression) {
+        return `${this.modifier} ${this.variable} = ${expression || this.expression}`
     }
 
     toSource() {
-        if (!this.meta) return
+        if (!this.meta) return this.toString()
 
-        return Object.entries(this.meta)
-            .map(function ([method, value]) {
-                return this[method](value)
-            }, this)
+        const newExpression = Object
+            .entries(this.meta)
+            .map(this.transform)
 
+        return this.toString(newExpression)
     }
 }

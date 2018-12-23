@@ -1,30 +1,37 @@
-import { FOR_LOOP_STUBS } from '../../../../resources'
+import { NEW_LINE } from '../../../../resources'
 
 import JavaScriptStatement from '.'
 
 export default class JavaScriptLoop extends JavaScriptStatement {
     constructor(statement, meta, registry) {
         super(statement, meta, registry)
+
+        const [init, check, delta] = this.line
+        this.init = init
+        this.check = check
+        this.delta = delta
     }
 
     repeat(n) {
         return new Array(n)
-            .fill(`for(let @ = 0; ${this.line[0]}; @++){`)
-            .map(function (loop, i) {
-                return loop.replace(FOR_LOOP_STUBS, (function (stub) {
-                    if (stub === '@') return this.registry.findOrCreate(this.tag + i)
-                    else return i
-                }).bind(this))
-            }, this)
+            .fill(this.toString())
+            .map(this.expand)
+            .join(NEW_LINE)
+    }
+
+    toString(expression) {
+        return expression || `for(let ${this.init}; ${this.check}; ${this.delta}){`
     }
 
     toSource() {
-        if (!this.meta) return
+        if (!this.meta)
+            return this.toString()
 
-        return Object.entries(this.meta)
-            .map(function ([method, value]) {
-                return this[method](value)
-            }, this)
+        const newExpression = Object
+            .entries(this.meta)
+            .map(this.transform)
+            .pop()
 
+        return this.toString(newExpression)
     }
 }
