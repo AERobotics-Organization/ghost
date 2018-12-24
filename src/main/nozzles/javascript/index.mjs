@@ -13,18 +13,16 @@ export default class JavaScriptNozzle {
 
     static spray(registry, tree, meta) {
 
-        for (const node of tree)
-            if (node.constructor === Array)
+        for (const node of tree) {
+            const JavaScriptStatement = JavaScriptNozzle.resolveStatement(node)
+            const sourceCode = new JavaScriptStatement(node, meta, registry).toSource()
+            console.log(sourceCode)
+
+            if (node.length)
                 JavaScriptNozzle.spray(registry, node, meta)
-            else {
 
-                const JavaScriptStatement = JavaScriptNozzle.resolveStatement(node)
-                const sourceCode = new JavaScriptStatement(node, meta, registry).toSource()
-
-                console.log(sourceCode)
-                console.log('++++++++++++++++++++++++++++++++++')
-            }
-
+            console.log(node.length ? '-----------ending-----------' : '')
+        }
     }
 
     static resolveStatement(node) {

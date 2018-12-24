@@ -13,7 +13,7 @@ export default class RadleyTree {
             if (statement.depth === depth)
                 block.push(statement)
             else
-                block.push(RadleyTree.init(code, [statement], statement.depth, index))
+                block.push(RadleyTree.init(code, statement, statement.depth, index))
         }
 
         return block
