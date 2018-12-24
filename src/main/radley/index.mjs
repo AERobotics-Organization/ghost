@@ -1,7 +1,8 @@
-import { NEW_LINE, VARIABLES, OUT_BLANK_LINES } from '../../resources'
+import { NEW_LINE, VARIABLES, NON_BLANK_LINES } from '../../resources'
 
 import RadleyMeta from './meta'
 import RadleyTree from './tree'
+import RadleyNozzle from './nozzle'
 import RadleyRegistry from './registry'
 
 export default class RadleySuite {
@@ -10,13 +11,13 @@ export default class RadleySuite {
 
         this.args = args.map(this.registry.findOrCreate)
 
-        this.meta = RadleyMeta.init(meta)
-        this.tree = RadleyTree.init(code
+        this.meta = RadleyMeta.make(meta)
+        this.tree = RadleyTree.make(code
             .replace(VARIABLES, this.registry.findOrCreate)
             .split(NEW_LINE)
-            .filter(OUT_BLANK_LINES))
+            .filter(NON_BLANK_LINES))
 
-        this.suite = nozzle.fit(this)
+        this.suite = new RadleyNozzle(this, nozzle).fit()
     }
 
     static suite(opts) {

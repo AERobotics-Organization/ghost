@@ -1,19 +1,19 @@
 import RadleyStatement from './statement'
 
 export default class RadleyTree {
-    static init(code, block = new Array(), depth = 0, index = [0]) {
+
+    static make(code, block = new Array(), depth = 0, index = [0]) {
         while (code[index[0]] !== undefined) {
             const statement = new RadleyStatement(code[index[0]])
 
-            if (statement.depth < depth)
-                return block
+            if (statement.depth <= depth)
+                return
 
-            ++index[0]
+            block.push(statement)
+            index[0]++
 
-            if (statement.depth === depth)
-                block.push(statement)
-            else
-                block.push(RadleyTree.init(code, statement, statement.depth, index))
+            if (statement.isContainer())
+                RadleyTree.make(code, statement, statement.depth, index)
         }
 
         return block

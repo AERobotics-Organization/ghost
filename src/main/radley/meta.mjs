@@ -1,22 +1,22 @@
 
 export default class RadleyMeta {
-    static init(meta) {
+    static make(meta) {
         const flatMeta = RadleyMeta.flatten(meta)
         const wovenMeta = RadleyMeta.weave(flatMeta)
 
         return wovenMeta
     }
 
-    static *weave(meta, snap = {}) {
-        if (!meta.length) yield snap
+    static *weave(meta, snapshot = {}) {
+        if (!meta.length) yield snapshot
         else {
             const [tag, setting, ticks] = meta[0]
             for (const tick of ticks) {
-                snap[tag] = snap[tag] || {}
+                snapshot[tag] = snapshot[tag] || {}
 
-                snap[tag][setting] = tick
-                yield* RadleyMeta.weave(meta.slice(1), snap)
-                delete snap[tag][setting]
+                snapshot[tag][setting] = tick
+                yield* RadleyMeta.weave(meta.slice(1), snapshot)
+                delete snapshot[tag][setting]
             }
         }
     }

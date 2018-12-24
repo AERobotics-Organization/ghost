@@ -1,4 +1,4 @@
-import { STATEMENT, STATEMENT_DELIMITERS } from '../../resources'
+import { STATEMENT, STATEMENT_DELIMITERS, LOOP } from '../../resources'
 
 export default class RadleyStatement extends Array {
     constructor(raw) {
@@ -10,4 +10,6 @@ export default class RadleyStatement extends Array {
         this.options = eval(`(${options})`)
         this.line = line.split(STATEMENT_DELIMITERS[this.options.type])
     }
+
+    isContainer() { return this.options.type === LOOP }
 }

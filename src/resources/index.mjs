@@ -23,4 +23,4 @@ export const STATEMENT_DELIMITERS = { [LOOP]: SEMI_COLON, [ASSIGNMENT]: EQUAL_SY
 export const UNICODE_LOWERCASE_LETTERS = [97, 123]
 
 /** --------------- FUNCTIONS --------------------- */
-export const OUT_BLANK_LINES = function (line) { return !BLANK_LINE.test(line) }
+export const NON_BLANK_LINES = function (line) { return !BLANK_LINE.test(line) }
