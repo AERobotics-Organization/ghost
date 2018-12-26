@@ -3,7 +3,7 @@ export const VARIABLES = /\$\w+/g
 export const BLANK_LINE = /^\s*$/g
 export const FOR_LOOP_STUBS = /@|\^/g
 export const LEADING_WHITE_SPACE = /\S|$/
-export const STATEMENT = /(\s*)({.+?})\s*:\s*(.+)/
+export const STATEMENT = /(\s*)(\w+)\s*:\s*(.+)/
 
 /** --------------- CONSTANTS --------------------- */
 export const LOOP = "loop"

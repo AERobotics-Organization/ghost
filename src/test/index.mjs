@@ -9,6 +9,7 @@ const suite = radley.suite({
         $ri: ['sum', 'volatile'],
         $ai: ['sum', 'volatile'],
     },
+    nozzle: js,
     code: `
 
     loop : @ = 0 ; @ < $R.shape[^] ; @++
@@ -16,13 +17,13 @@ const suite = radley.suite({
             
             assignment : $ri = @ * $R.strides[^]
             assignment : $ai = @ * $A.strides[^]
-            
+
             assignment : $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
 
     return : $R`
 
-}).fit(js)
+})
 
-// import util from 'util'
-// console.log(util.inspect(suite, false, null, true /* enable colors */))
+import util from 'util'
+console.log(util.inspect(suite, false, null, true /* enable colors */))
 
