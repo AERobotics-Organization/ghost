@@ -9,8 +9,7 @@ export default class RadleyTree {
             if (statement.depth <= depth)
                 return
 
-            block.push(statement)
-            index[0]++
+            block.push(statement), index[0]++
 
             if (statement.isContainer())
                 RadleyTree.make(code, statement, statement.depth, index)

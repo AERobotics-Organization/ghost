@@ -1,20 +1,27 @@
-import { FOR_LOOP_STUBS, AT_SYMBOL, CARROT_SYMBOL } from '../../../../resources'
+import { FOR_LOOP_STUBS, AT_SYMBOL, CARROT_SYMBOL, LOOP } from '../../../resources'
 
-export default class JavaScriptStatement {
-    constructor({ options: { tag, type, operation, modifier }, line }, meta, registry) {
-        this.tag = tag
+import JavaScriptLoop from './loop'
+import JavaScriptReturn from './return'
+import JavaScriptAssignment from './assignment'
 
-        this.type = type
-        this.line = line
-        this.meta = meta[this.tag]
-
-        this.modifier = modifier
-        this.operation = operation
+export default class JavaScriptNode {
+    constructor(radleyNode, meta, registry) {
+        this.radleyNode = radleyNode
         this.registry = registry
+        this.meta = meta
 
         this.expand = this.expand.bind(this)
         this.transform = this.transform.bind(this)
     }
+
+    open() {
+        switch (this.radleyNode.options.type) {
+            case LOOP:
+                JavaScriptLoop.open(this.radleyNode, this.meta, this.registry)
+        }
+
+    }
+    close() { }
 
     expand(statement, i) {
         return statement.replace(FOR_LOOP_STUBS, (function (stub) {

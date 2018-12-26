@@ -1,4 +1,4 @@
-import { NEW_LINE } from '../../../../resources'
+import { NEW_LINE } from '../../../resources'
 
 import JavaScriptStatement from '.'
 
