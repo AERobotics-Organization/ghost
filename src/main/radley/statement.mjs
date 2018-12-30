@@ -1,4 +1,4 @@
-import { STATEMENT, STATEMENT_DELIMITERS, LOOP } from '../../resources'
+import { STATEMENT, LOOP } from '../../resources'
 
 export default class RadleyStatement extends Array {
     constructor(raw) {

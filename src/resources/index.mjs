@@ -10,15 +10,6 @@ export const LOOP = "loop"
 export const RETURN = "return"
 export const ASSIGN = "assign"
 
-export const TAB = "\t"
-export const NEW_LINE = "\n"
-export const AT_SYMBOL = "@"
-export const SEMI_COLON = ";"
-export const EQUAL_SYMBOL = "="
-export const CARROT_SYMBOL = "^"
-
-export const STATEMENT_DELIMITERS = { [LOOP]: SEMI_COLON, [ASSIGN]: EQUAL_SYMBOL }
-
 /** --------------- VARIABLES --------------------- */
 export const UNICODE_LOWERCASE_LETTERS = [97, 123]
 
