@@ -14,10 +14,6 @@ export default class RadleyRegistry {
         return this.registry[tag] || (this.registry[tag] = this.nextVar())
     }
 
-    registerArgs(args) {
-        return args.map(this.findOrCreate)
-    }
-
     seekVar() {
         return this.low + Math.floor(Math.random() * (this.high - this.low))
     }

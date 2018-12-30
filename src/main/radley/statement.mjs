@@ -4,12 +4,12 @@ export default class RadleyStatement extends Array {
     constructor(raw) {
         super()
 
-        const [_, depth, type, line] = raw.match(STATEMENT)
+        const [_, depth, options, line] = raw.match(STATEMENT)
 
-        this.type = type
+        this.line = line
+        this.options = eval(`(${options})`)
         this.depth = depth.length
-        this.line = line.split(STATEMENT_DELIMITERS[this.type])
     }
 
-    isContainer() { return this.type === LOOP }
+    isContainer() { return this.options.type === LOOP }
 }
