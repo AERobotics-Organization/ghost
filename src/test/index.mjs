@@ -1,31 +1,44 @@
 import js from '../main/nozzles/javascript'
 import radley from '../main/radley'
 
-const result =
-    radley
-        .suite({
-            args: ['$R', '$A', '$map', '$reduce'],
-            nozzle: js,
-            code: `
-            { tag: 'RL', type: 'loop' } | @ = 0 ; @ < $R.shape[^] ; @++
-                { tag: 'AL', type: 'loop' } | @ = 0 ; @ < $A.shape[^] ; @++
-                
-                    { tag: 'RL', type: 'assign', op: '+' } | $ri = @ * $R.strides[^]
-                    { tag: 'AL', type: 'assign', op: '+' } | $ai = @ * $A.strides[^]
+const result = radley.suite({
+    args: ['R', 'A', 'B'],
+    nozzle: js,
+    generic: true,
+    meta: function ({ R, A, B }) {
+        return `
+            AL.expand=${true},
+            BL.expand=${true},
+            SL.expand=${true},
 
-                    { type: 'assign' } | $R.data[$ri] = $reduce($map($A.data[$ai]), $R.data[$ri])
-            
-            { type: 'return' } | $R`
-        })
-        .lookup(`({ 
-            RL: { repeat: 1 }, 
-            AL: { repeat: 4 } 
-        })`)
-        .call(null,
-            { shape: [1], strides: [1], data: new Float64Array(1) },
-            { shape: [3, 7, 3, 5], strides: [15 * 7, 15, 5, 1], data: new Float64Array(3 * 7 * 3 * 5).map(Math.random) },
-            function (a) { return a },
-            function (a, b) { return a + b })
+            R.header.shape[0]=${R.header.shape[0]},
+            R.header.shape[1]=${R.header.shape[1]},
+            A.header.shape[1]=${A.header.shape[1]},
+
+            B.header.strides[0]=${B.header.strides[0]},
+            B.header.strides[1]=${B.header.strides[1]},
+
+            A.header.strides[0]=${A.header.strides[0]},
+            A.header.strides[1]=${A.header.strides[1]},
+        `
+    },
+    code: `
+        AL: @ = 0 ; @ < R.header.shape[0] ; @++
+            BL: @ = 0 ; @ < R.header.shape[1] ; @++
+                SL: @ = 0 ; @ < A.header.shape[1] ; @++
+        
+                    AL, BL: ri = @ * R.header.strides[0] + @
+                    AL, SL: ai = @ * A.header.strides[0] + @ * A.header.strides[1]
+                    BL, SL: bi = @ * B.header.strides[1] + @ * B.header.strides[0]
+
+                    SL: R.data[ri] = R.data[ri] + A.data[ai] * B.data[bi]
+        return R`
+}).call({
+    R: { header: { shape: [4, 4], strides: [4, 1], data: new Float64Array(16).map(Math.random) } },
+    A: { header: { shape: [4, 4], strides: [4, 1], data: new Float64Array(16).map(Math.random) } },
+    B: { header: { shape: [4, 4], strides: [4, 1], data: new Float64Array(16) } }
+})
+
 
 import util from 'util'
 console.log(util.inspect(result, false, null, true /* enable colors */))

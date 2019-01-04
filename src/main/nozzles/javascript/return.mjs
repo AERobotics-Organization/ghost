@@ -1,10 +1,15 @@
-import { FOR_LOOP_STUBS } from '../../../resources'
+// import { } from '../../../resources'
 
 export default class JavaScriptReturn {
-    static open(props) { return JavaScriptReturn.toSource(props, false) }
-    static close(props) { return JavaScriptReturn.toSource(props, true) }
+    static open(meta, statement, registry) {
+        return JavaScriptReturn.toSource(meta, statement, registry, false)
+    }
 
-    static toSource({ meta, statement, registry }, closing) {
+    static close(meta, statement, registry) {
+        return JavaScriptReturn.toSource(meta, statement, registry, true)
+    }
+
+    static toSource(meta, statement, registry, closing) {
         return !closing ? `return ${statement.line}` : ';'
     }
 }

@@ -5,23 +5,15 @@ import JavaScriptAssign from './assign.mjs'
 import JavaScriptReturn from './return.mjs'
 
 export default class JavaScriptNozzle {
-    static makeFunction(args, source) {
-        return new Function(...args, source)
+    static Method(args, source) {
+        return new Function(`{${args}}`, source)
     }
 
-    static open(props) {
-        switch (props.statement.options.type) {
-            case LOOP: return JavaScriptLoop.open(props)
-            case ASSIGN: return JavaScriptAssign.open(props)
-            case RETURN: return JavaScriptReturn.open(props)
-        }
-    }
-
-    static close(props) {
-        switch (props.statement.options.type) {
-            case LOOP: return JavaScriptLoop.close(props)
-            case ASSIGN: return JavaScriptAssign.close(props)
-            case RETURN: return JavaScriptReturn.close(props)
+    static Node(meta, statement, registry) {
+        switch (statement.type) {
+            case LOOP: return new JavaScriptLoop(meta, statement, registry)
+            case ASSIGN: return new JavaScriptAssign(meta, statement, registry)
+            case RETURN: return new JavaScriptReturn(meta, statement, registry)
         }
     }
 }

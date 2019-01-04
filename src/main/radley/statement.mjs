@@ -1,15 +1,25 @@
-import { STATEMENT, LOOP } from '../../resources'
+import { STATEMENT, LOOP, RETURN, ASSIGN } from '../../resources'
 
 export default class RadleyStatement extends Array {
     constructor(raw) {
         super()
 
-        const [_, depth, options, line] = raw.match(STATEMENT)
+        const [_, depth, line] = raw.match(STATEMENT)
+        const [code, tags] = line.split(':').reverse()
 
-        this.line = line
-        this.options = eval(`(${options})`)
+        this.tags = tags && tags.trim().split(',')
+        this.code = code && code.trim()
         this.depth = depth.length
+
+        if (code.indexOf(';') > 0)
+            this.type = LOOP
+
+        else if (code.indexOf('=') > 0)
+            this.type = ASSIGN
+
+        else if (code.indexOf('return') > 0)
+            this.type = RETURN
     }
 
-    isContainer() { return this.options.type === LOOP }
+    isContainer() { return this.type === LOOP }
 }

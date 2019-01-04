@@ -1,4 +1,4 @@
-import { FOR_LOOP_STUBS } from '../../../resources'
+import { META_STUBS } from '../../../resources'
 
 export default class JavaScriptAssign {
     static open(props) { return JavaScriptAssign.toSource(props, false) }
@@ -24,7 +24,7 @@ export default class JavaScriptAssign {
             : `let ${variable} = ${new Array(n)
                 .fill(value)
                 .map(function (loop, i) {
-                    return loop.replace(FOR_LOOP_STUBS, function (stub) {
+                    return loop.replace(META_STUBS, function (stub) {
                         if (stub === '^') return i
                         if (stub === '@') return registry.findOrCreate(statement.options.tag + i)
                     })

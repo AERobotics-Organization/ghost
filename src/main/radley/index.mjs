@@ -1,41 +1,39 @@
-import { VARIABLES, NON_BLANK_LINES } from '../../resources'
+import { CLEAN_CODE } from '../../resources'
 
 import RadleyTree from './tree'
 import RadleyRegistry from './registry'
 
 export default class RadleySuite {
-    constructor({ args, code, nozzle }) {
-        this.registry = new RadleyRegistry()
-
+    constructor({ args, code, meta, nozzle, generic }) {
         this.suite = {}
+        this.args = args
+        this.meta = meta
         this.nozzle = nozzle
-
-        this.args = args.map(this.registry.findOrCreate)
-        this.tree = RadleyTree.makeTree(code
-            .replace(VARIABLES, this.registry.findOrCreate)
-            .split('\n')
-            .filter(NON_BLANK_LINES))
+        this.generic = generic
+        this.registry = new RadleyRegistry()
+        this.tree = RadleyTree.makeTree(CLEAN_CODE(code))
     }
 
     static suite(opts) {
         return new RadleySuite(opts)
     }
 
-    lookup(meta) {
-        return this.suite[meta] /** If we don't have a function make one */
-            || (this.suite[meta] = this.nozzle.makeFunction(this.args, this.toSource(meta)))
+    call(args) {
+        const meta = this.meta(args)
+        const func = this.suite[meta] ||
+            (this.suite[meta] = this.nozzle.Method(this.args, this.toSource(meta)))
+
+        return func(args)
     }
 
     toSource(meta, tree = this.tree) {
         let source = ''
-
         for (const statement of tree) {
-            source += this.nozzle.open({ meta, statement, registry: this.registry })
+            const nozzle = new this.nozzle.Node(meta, statement, this.registry)
 
-            if (statement.length)
-                source += this.toSource(meta, statement)
-
-            source += this.nozzle.close({ meta, statement, registry: this.registry })
+            source += nozzle.open()
+            source += this.toSource(meta, statement)
+            source += nozzle.close()
         }
 
         return source
