@@ -1,17 +1,16 @@
 import { CLEAN_CODE } from '../../resources'
 
-import RadleyTree from './tree'
-import RadleyRegistry from './registry'
+import RadleyCompiler from './compiler'
 
 export default class RadleySuite {
-    constructor({ args, code, meta, nozzle, generic }) {
+    constructor({ args, code, meta, nozzle }) {
         this.suite = {}
+
         this.args = args
         this.meta = meta
         this.nozzle = nozzle
-        this.generic = generic
-        this.registry = new RadleyRegistry()
-        this.tree = RadleyTree.makeTree(CLEAN_CODE(code))
+
+        this.tree = RadleyCompiler.parse(CLEAN_CODE(code))
     }
 
     static suite(opts) {
@@ -29,7 +28,7 @@ export default class RadleySuite {
     toSource(meta, tree = this.tree) {
         let source = ''
         for (const statement of tree) {
-            const nozzle = new this.nozzle.Node(meta, statement, this.registry)
+            const nozzle = this.nozzle.Node(meta, statement, this.registry)
 
             source += nozzle.open()
             source += this.toSource(meta, statement)

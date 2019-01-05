@@ -4,12 +4,9 @@ import radley from '../main/radley'
 const result = radley.suite({
     args: ['R', 'A', 'B'],
     nozzle: js,
-    generic: true,
     meta: function ({ R, A, B }) {
         return `
-            AL.expand=${true},
-            BL.expand=${true},
-            SL.expand=${true},
+            expand=${true},
 
             R.header.shape[0]=${R.header.shape[0]},
             R.header.shape[1]=${R.header.shape[1]},

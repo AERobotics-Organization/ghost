@@ -34,7 +34,7 @@ export const CLEAN_META = function (meta) {
             for (let i = 0; i < keys.length - 1; i++)
                 runner = runner[keys[i]] || (runner[keys[i]] = {})
 
-            runner[keys[keys.length - 1]] = value
+            runner[keys[keys.length - 1]] = JSON.parse(value)
 
             return metaObject
         }, {})

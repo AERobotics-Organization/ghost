@@ -1,7 +1,7 @@
 import RadleyStatement from './statement'
 
-export default class RadleyTree {
-    static makeTree(code, block = [], depth = 0, index = [0]) {
+export default class RadleyCompiler {
+    static parse(code, block = [], depth = 0, index = [0]) {
         while (code[index[0]] !== undefined) {
             const statement = new RadleyStatement(code[index[0]])
 
@@ -11,9 +11,12 @@ export default class RadleyTree {
             block.push(statement), index[0]++
 
             if (statement.isContainer())
-                RadleyTree.makeTree(code, statement, statement.depth, index)
+                RadleyCompiler.parse(code, statement, statement.depth, index)
         }
 
         return block
     }
+
+    static preprocess(code, meta) { }
+    static lex() { }
 }
