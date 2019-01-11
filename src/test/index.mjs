@@ -1,24 +1,41 @@
 import radley from '../main'
 
-const A = { header: { shape: [4, 4], strides: [4, 1], data: [4, 5, 2, 4, 5, 4, 6, 7, 4, 5, 3, 5, 6, 7, 3, 5] } }
-const B = { header: { shape: [4, 4], strides: [4, 1], data: [4, 5, 2, 4, 5, 4, 6, 7, 4, 5, 3, 5, 6, 7, 3, 5] } }
-const R = { header: { shape: [4, 4], strides: [4, 1], data: new Float64Array(16) } }
+const A = {
+    header: { shape: [2, 2, 2, 2], strides: [8, 4, 2, 1] },
+    data: [...new Array(16).fill(null).keys()]
+}
 
-radley.suite(function ({ A, B, R }) {
-    const source = []
+const B = {
+    header: { shape: [2, 2, 2, 2], strides: [8, 4, 2, 1] },
+    data: [...new Array(16).fill(null).keys()]
+}
 
-    for (let i = 0; i < R.header.shape[0]; i++) {
-        for (let j = 0; j < R.header.shape[1]; j++) {
-            const mults = []
-            for (let k = 0; k < A.header.shape[1]; k++) {
-                mults.push(` A.header.data[${i * A.header.shape[1] + k}] * B.header.data[${k * B.header.shape[1] + j}] `)
-            }
-            source.push(`R.header.data[${source.length}]=${mults.join(' + ')}`)
+const R = {
+    header: { shape: [2, 2], strides: [2, 1] },
+    data: new Array(8).fill(0)
+}
+
+const result = radley.suite({
+    meta: function ({ A }) {
+        return `${A.header.shape.length}`
+    },
+    method: function ({ A }) {
+        const source = [], aIndex = [], bIndex = []
+
+        source.push(`let ri = 0`)
+        for (let i = 0; i < A.header.shape.length; i++) {
+            source.push(`for(let i${i} = 0; i${i} < A.header.shape[${i}]; i${i}++){`)
+            aIndex.push(`i${i} * A.header.strides[${i}]`)
+            bIndex.push(`i${i} * B.header.strides[${i}]`)
         }
+
+        source.push(`R.data[ri++] = reducer(A.data[${aIndex.join('+')}], B.data[${bIndex.join('+')}])`)
+        source.push('}'.repeat(A.header.shape.length))
+        source.push(`return R`)
+
+        return new Function('{ A, B, R, reducer }', source.join('\n'))
     }
+})
 
-    source.push('return R')
-    return new Function('{ A, B, R }', source.join('\n'))
-}).call({ A, B, R })
 
-console.log(R.header.data)
+console.log(result)
