@@ -1,8 +1,9 @@
 export default class RadleySuite {
-    constructor({ method, meta }) {
+    constructor({ meta, optimized }) {
         this.suite = {}
+
         this.meta = meta
-        this.method = method
+        this.optimized = optimized
     }
 
     static suite(opts) {
@@ -11,7 +12,7 @@ export default class RadleySuite {
 
     call(args) {
         const meta = this.meta(args)
-        const func = this.suite[meta] || (this.suite[meta] = this.method(args))
+        const func = this.suite[meta] || (this.suite[meta] = this.optimized(args))
 
         return func(args)
     }

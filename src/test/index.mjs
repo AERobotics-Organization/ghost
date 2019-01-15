@@ -19,7 +19,7 @@ const result = radley.suite({
     meta: function ({ A }) {
         return `${A.header.shape.length}`
     },
-    method: function ({ A }) {
+    optimized: function ({ A }) {
         const source = [], aIndex = [], bIndex = []
 
         source.push(`let ri = 0`)
