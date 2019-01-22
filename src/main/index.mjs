@@ -1,7 +1,7 @@
 import { makeCaller, makeRouter, wrap } from './utils.mjs'
 
 export default class RadleySuite {
-    constructor({ args, router, tractable, generic, optimized }) {
+    constructor({ router, tractable, generic, optimized }) {
         this.suite = {}
         this.tractable = tractable
 
