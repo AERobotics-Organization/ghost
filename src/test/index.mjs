@@ -66,8 +66,7 @@ function optimized(args) {
 
 
 const suite = radley.suite({
-    generic,
-    optimized,
+    methods: { generic, optimized },
     router: function (args) {
         return this.suite[args.A.header.shape[0]]
         [args.A.header.shape[1]]
