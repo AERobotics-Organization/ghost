@@ -1,19 +1,18 @@
-export default class RadleySuite {
-    constructor({ meta, optimized }) {
-        this.suite = {}
+import { makeCaller, makeRouter, wrap } from './utils.mjs'
 
-        this.meta = meta
-        this.optimized = optimized
+export default class RadleySuite {
+    constructor({ args, router, tractable, generic, optimized }) {
+        this.suite = {}
+        this.tractable = tractable
+
+        this.call = makeCaller(router.toString(), this.args).bind(this)
+        this.route = makeRouter(router.toString(), this.args).bind(this)
+
+        this.generic = wrap(generic).bind(this)
+        this.optimized = wrap(optimized).bind(this)
     }
 
     static suite(opts) {
         return new RadleySuite(opts)
-    }
-
-    call(args) {
-        const meta = this.meta(args)
-        const func = this.suite[meta] || (this.suite[meta] = this.optimized(args))
-
-        return func(args)
     }
 }
