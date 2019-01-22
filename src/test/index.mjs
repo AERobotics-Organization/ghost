@@ -65,15 +65,12 @@ function optimized(args) {
 }
 
 
-
-
 const suite = radley.suite({
     generic,
     optimized,
     router: function (args) {
         return this.suite[args.A.header.shape[0]]
         [args.A.header.shape[1]]
-        [args.B.header.shape[0]]
         [args.B.header.shape[1]]
     },
     tractable: function (args) {
@@ -84,17 +81,16 @@ const suite = radley.suite({
 const args = { A, B, R }
 
 console.time('fast')
-for (let i = 0; i < 1e7; i++)
+for (let i = 0; i < 1.4e7; i++)
     matMult(args)
 console.timeEnd('fast')
 
-
 console.time('slow')
-for (let i = 0; i < 1e7; i++)
+for (let i = 0; i < 1.4e7; i++)
     suite.call(args)
 console.timeEnd('slow')
 
 console.time('glacial')
-for (let i = 0; i < 1e7; i++)
+for (let i = 0; i < 1.4e7; i++)
     generic(args)
 console.timeEnd('glacial')
