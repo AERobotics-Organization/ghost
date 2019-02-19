@@ -1,17 +1,17 @@
 import radley from '../main'
 
 const A = {
-    header: { shape: [4, 4], strides: [4, 1], offset: 0 },
+    header: { shape: [4, 4], strides: [4, 1], offset: 0, size: 16, id: 'A' },
     data: new Float64Array(16).map(Math.random)
 }
 
 const B = {
-    header: { shape: [4, 4], strides: [4, 1], offset: 0 },
+    header: { shape: [4, 4], strides: [4, 1], offset: 0, size: 16, id: 'B' },
     data: new Float64Array(16).map(Math.random)
 }
 
 const R = {
-    header: { shape: [4, 4], strides: [4, 1], offset: 0 },
+    header: { shape: [4, 4], strides: [4, 1], offset: 0, size: 16, id: 'R' },
     data: new Float64Array(16)
 }
 
@@ -36,15 +36,17 @@ function matMult({ A, B, R }) {
     return R
 }
 
-function generic(args) {
-    for (let r = 0; r < args.A.header.shape[0]; r++)
-        for (let c = 0; c < args.B.header.shape[1]; c++)
-            for (let s = 0; s < args.A.header.shape[1]; s++)
-                args.R.data[r * args.B.header.shape[1] + c] +=
-                    args.A.data[r * args.A.header.strides[0] + s * args.A.header.strides[1] + args.A.header.offset] *
-                    args.B.data[c * args.B.header.strides[1] + s * args.B.header.strides[0] + args.B.header.offset]
+function generic() {
+    return function (args) {
+        for (let r = 0; r < args.A.header.shape[0]; r++)
+            for (let c = 0; c < args.B.header.shape[1]; c++)
+                for (let s = 0; s < args.A.header.shape[1]; s++)
+                    args.R.data[r * args.B.header.shape[1] + c] +=
+                        args.A.data[r * args.A.header.strides[0] + s * args.A.header.strides[1] + args.A.header.offset] *
+                        args.B.data[c * args.B.header.strides[1] + s * args.B.header.strides[0] + args.B.header.offset]
 
-    return args.R
+        return args.R
+    }
 }
 
 function optimized(args) {
@@ -65,19 +67,22 @@ function optimized(args) {
 }
 
 
+
+
 const suite = radley.suite({
-    methods: { generic, optimized },
-    router: function (args) {
-        return this.suite[args.A.header.shape[0]]
-        [args.A.header.shape[1]]
-        [args.B.header.shape[1]]
+    generic: {
+        criteria: 'args.R.header.size > 500',
+        methods: { default: generic }
     },
-    tractable: function (args) {
-        return args.A.header.shape[0] * args.A.header.shape[1] * args.B.header.shape[1] < 500
-    }
+    optimized: {
+        criteria: 'args.R.header.size <= 500',
+        methods: { default: optimized }
+    },
+    hash: ['args.A.header.id', 'args.B.header.id', 'args.R.header.id']
 })
 
-const args = { A, B, R }
+
+const args = { A, B, R, method: 'default' }
 
 console.time('fast')
 for (let i = 0; i < 1.4e7; i++)
@@ -91,5 +96,5 @@ console.timeEnd('slow')
 
 console.time('glacial')
 for (let i = 0; i < 1.4e7; i++)
-    generic(args)
+    generic()(args)
 console.timeEnd('glacial')
