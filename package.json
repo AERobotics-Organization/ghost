@@ -1,6 +1,6 @@
 {
     "name": "radley",
-    "version": "4.0.1",
+    "version": "5.0.0",
     "description": "Radley generates code at runtime to sweep away the repetition",
     "main": "src/main/index.mjs",
     "scripts": {
