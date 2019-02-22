@@ -15,6 +15,34 @@ const R = {
     data: new Float64Array(16)
 }
 
+
+const matMultSuite = radley.suite({
+    default: {
+        'args.R.header.size > 500': generic,
+        'args.R.header.size <= 500': optimized
+    },
+    hash: ['args.A.header.id', 'args.B.header.id', 'args.R.header.id']
+})
+
+const args = { A, B, R, method: 'default' }
+
+console.time('fast')
+for (let i = 0; i < 1e7; i++)
+    matMult(args)
+console.timeEnd('fast')
+
+console.time('slow')
+for (let i = 0; i < 1e7; i++)
+    matMultSuite.call(args)
+console.timeEnd('slow')
+
+console.time('glacial')
+for (let i = 0; i < 1e7; i++)
+    generic()(args)
+console.timeEnd('glacial')
+
+
+
 function matMult({ A, B, R }) {
     R.data[0] = A.data[0] * B.data[0] + A.data[1] * B.data[4] + A.data[2] * B.data[8] + A.data[3] * B.data[12]
     R.data[1] = A.data[0] * B.data[1] + A.data[1] * B.data[5] + A.data[2] * B.data[9] + A.data[3] * B.data[13]
@@ -65,36 +93,3 @@ function optimized(args) {
     source.push('return args.R')
     return new Function('args', source.join('\n'))
 }
-
-
-
-
-const suite = radley.suite({
-    generic: {
-        criteria: 'args.R.header.size > 500',
-        methods: { default: generic }
-    },
-    optimized: {
-        criteria: 'args.R.header.size <= 500',
-        methods: { default: optimized }
-    },
-    hash: ['args.A.header.id', 'args.B.header.id', 'args.R.header.id']
-})
-
-
-const args = { A, B, R, method: 'default' }
-
-console.time('fast')
-for (let i = 0; i < 1.4e7; i++)
-    matMult(args)
-console.timeEnd('fast')
-
-console.time('slow')
-for (let i = 0; i < 1.4e7; i++)
-    suite.call(args)
-console.timeEnd('slow')
-
-console.time('glacial')
-for (let i = 0; i < 1.4e7; i++)
-    generic()(args)
-console.timeEnd('glacial')

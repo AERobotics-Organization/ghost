@@ -6,27 +6,33 @@ export const makeRouter = function (hash) {
         ${hash.map(function (field, i) {
             return i ? `const i${i} = i${i - 1}[${field}] || (i${i - 1}[${field}] = {})` : ''
         }).join('\n')}
-
+        
         return i${hash.length - 1}[args.method] || i${hash.length - 1}
     `)
 }
 
-export const makeCaller = function (tiers) {
+export const makeCaller = function (methods) {
     return new Function('args', `
         let func = this.route(args)
 
         if (func.constructor === Object)
-            ${makeTierChecks(tiers)}   
+            ${makeMethodChecks(methods)}   
 
         return func(args)
     `)
 }
 
-export const makeTierChecks = function (tiers) {
-    return Object.entries(tiers)
-        .map(function ([label, tier], i) {
-            return (!i ? '' : 'else ') + `if(${tier.criteria}){
-                func = func[args.method] = this.tiers.${label}.methods[args.method](args)
-            }`
-        }).join('\n')
+export const makeMethodChecks = function (methods) {
+
+    return `switch(args.method){
+        ${Object.entries(methods).map(function ([label, tiers]) {
+            return `case '${label}': ${Object.keys(tiers).map(function (criteria, i) {
+                return (!i ? '' : 'else ') + `if(${criteria}){ 
+                    func = 
+                    func[args.method] = 
+                    this.methods['${label}']['${criteria}'].call(null, args) 
+                }`
+            }).join('\n')} break`
+        }).join('\n')}
+    }`
 }

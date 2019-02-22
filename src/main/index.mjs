@@ -1,12 +1,12 @@
 import { makeCaller, makeRouter } from './utils.mjs'
 
 export default class RadleySuite {
-    constructor({ hash, ...tiers }) {
+    constructor({ hash, ...methods }) {
         this.suite = {}
         this.hash = hash
-        this.tiers = tiers
+        this.methods = methods
 
-        this.call = makeCaller(this.tiers).bind(this)
+        this.call = makeCaller(this.methods).bind(this)
         this.route = makeRouter(this.hash).bind(this)
     }
 
