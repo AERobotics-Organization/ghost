@@ -30,7 +30,7 @@ export const makeMethodChecks = function (methods) {
                 return (!i ? '' : 'else ') + `if(${criteria}){ 
                     func = 
                     func[args.method] = 
-                    this.methods['${label}']['${criteria}'].call(null, args) 
+                    this.methods['${label}']['${criteria}'](args)
                 }`
             }).join('\n')} break`
         }).join('\n')}
